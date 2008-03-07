@@ -10,6 +10,7 @@ class BaseFeedAdapter(object):
     def __init__(self, context):
         self.context = context
 
+    # XXX this should become full_title, title should be short
     @property
     def title(self):
         return '%s Opencore Feed' % self.context.Title()

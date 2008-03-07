@@ -20,6 +20,14 @@ class ProjectFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IProject)
 
+    title = 'Pages'
+
+    @property
+    def link(self):
+        # XXX this will become '%s/home'
+        # how to get this?
+        return '%s/project-home' % self.context.absolute_url()
+
     @property
     def items(self, n_items=5):
         cat = getToolByName(self.context, 'portal_catalog')
