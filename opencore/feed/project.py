@@ -5,6 +5,7 @@ from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.interfaces import IFeedData
 from opencore.feed.interfaces import IFeedItem
 from zope.component import adapts
+from zope.component import createObject
 from zope.interface import alsoProvides
 from zope.interface import implements
 
@@ -41,18 +42,9 @@ class ProjectFeedAdapter(BaseFeedAdapter):
             # let's just leave it off for now
             #body = brain.getObject().getText()
 
-            # returning a dictionary would also work
-            # this is just more formal
-            feed_item = type('PageFeedItem',
-                             (object,),
-                             dict(title=title,
-                                  description=description,
-                                  link=link,
-                                  pubDate=pubDate,
-                                  #body=body,
-                                  ))
-
-            # to be technically correct
-            alsoProvides(feed_item, IFeedItem)
-            
+            feed_item = createObject('opencore.feed.feeditem',
+                                     title,
+                                     description,
+                                     link,
+                                     pubDate)
             yield feed_item

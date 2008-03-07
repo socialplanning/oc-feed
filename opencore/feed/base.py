@@ -1,3 +1,6 @@
+from opencore.feed.interfaces import IFeedItem
+from zope.interface import implements
+
 class BaseFeedAdapter(object):
     """Useful base class that provides most common functionality.
        Context needs to provide dublin core.
@@ -29,3 +32,12 @@ class BaseFeedAdapter(object):
     @property
     def author(self):
         return self.context.Creator()
+
+class FeedItem(object):
+    implements(IFeedItem)
+
+    def __init__(self, title, description, link, pubDate):
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubDate = pubDate

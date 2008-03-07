@@ -17,6 +17,12 @@
      interface="opencore.feed.interfaces.ICanFeed"
      />
 
+  <utility
+     provides="zope.component.interfaces.IFactory"
+     component="opencore.feed.factory.feedItemFactory"
+     name="opencore.feed.feeditem"
+     />
+
   <adapter
      for="opencore.interfaces.IProject"
      provides="opencore.feed.interfaces.IFeedData"

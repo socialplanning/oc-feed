@@ -4,6 +4,11 @@ Create a stub context used for the page adapter
     >>> from opencore.feed.tests import DummyContext
     >>> context = DummyContext()
 
+Register the actual factory used (simple enough)
+   >>> from opencore.feed.factory import feedItemFactory
+   >>> from zope.component import provideUtility
+   >>> provideUtility(feedItemFactory, name='opencore.feed.feeditem')
+
 And override the repository history call
 to return a stub result
     >>> class DummyRepository(object):

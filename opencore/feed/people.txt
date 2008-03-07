@@ -11,6 +11,11 @@ to return a stub result
     ...         return [StubResult()]
     >>> context.portal_catalog = DummySearch()
 
+Register the actual factory used (simple enough)
+   >>> from opencore.feed.factory import feedItemFactory
+   >>> from zope.component import provideUtility
+   >>> provideUtility(feedItemFactory, name='opencore.feed.feeditem')
+
 Stub a sample result
     >>> from datetime import datetime
     >>> class StubResult(object):

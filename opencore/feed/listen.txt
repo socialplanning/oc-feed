@@ -18,6 +18,10 @@ Register the dummy search utility
     >>> dummy_search = DummySearch()
     >>> provideUtility(dummy_search)
 
+Register the actual factory used (simple enough)
+   >>> from opencore.feed.factory import feedItemFactory
+   >>> provideUtility(feedItemFactory, name='opencore.feed.feeditem')
+
 Stub a sample result
     >>> from datetime import datetime
     >>> class StubResult(object):
