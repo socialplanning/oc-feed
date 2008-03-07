@@ -27,3 +27,4 @@ class IFeedItem(Interface):
     link = ASCII()
     description = Text()
     pubDate = Datetime()
+    body = Text(default=u'', required=False)
