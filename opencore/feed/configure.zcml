@@ -5,8 +5,14 @@
   <five:implements
      class="Products.OpenPlans.content.project.OpenProject"
      interface="opencore.feed.interfaces.ICanFeed"
+     />  
+
+  <five:implements
+     class="opencore.featurelets.interfaces.IListenContainer"
+     interface="opencore.feed.interfaces.ICanFeed"
      />
 
+<!--
   <five:implements
      class="opencore.content.page.OpenPage"
      interface="opencore.feed.interfaces.ICanFeed"
@@ -16,6 +22,7 @@
      class="opencore.listen.mailinglist.OpenMailingList"
      interface="opencore.feed.interfaces.ICanFeed"
      />
+-->
 
   <utility
      provides="zope.component.interfaces.IFactory"

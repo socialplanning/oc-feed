@@ -36,12 +36,17 @@ class BaseFeedAdapter(object):
 class FeedItem(object):
     implements(IFeedItem)
 
-    def __init__(self, title, description, link, pubDate, body=None):
+    def __init__(self, title, description, link, author, pubDate, body=None, context=None, byline=None):
         self.title = title
         self.description = description
         self.link = link
+        self.author = author
         self.pubDate = pubDate
         if body is None:
             self.body = u''
         else:
             self.body = body
+        if context:
+            self.context = context
+        if byline:
+            self.byline = byline

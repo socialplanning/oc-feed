@@ -1,7 +1,10 @@
+import re
+
 from Products.CMFCore.utils import getToolByName
-from Products.listen.interfaces import ISearchableArchive
-from opencore.featurelets.interfaces import IListenContainer
 from opencore.listen.interfaces import IOpenMailingList
+from Products.listen.interfaces import ISearchableArchive
+from Products.listen.lib.browser_utils import messageStructure
+from opencore.featurelets.interfaces import IListenContainer
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.interfaces import IFeedData
 from opencore.feed.interfaces import IFeedItem
@@ -11,14 +14,18 @@ from zope.component import createObject
 from zope.interface import alsoProvides
 from zope.interface import implements
 
+# regular expression to strip names from an email
+# address in standard format
+email_re = re.compile(r' *"(.*)" *<.*@.*>')
+
 class ListsFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IListenContainer)
 
     @property
-    def items(self):
-        """we aggregate the 10 most recent messages across all mailing lists,
-           then sort those by date and take the top 10
+    def items(self, n_items=5):
+        """we aggregate the most recent messages across all mailing lists,
+           then sort those by date and take the top n_items
 
            XXX this is potentially an expensive operation
            we may want a separate catalog on the lists level
@@ -28,53 +35,105 @@ class ListsFeedAdapter(BaseFeedAdapter):
 
         MSG_BODY_LENGTH = 300
 
-        brains = []
-        for ml_id in self.context.objectIds():
-            sa = getUtility(
-                ISearchableArchive,
-                context=self.context._getOb(ml_id))
-            ml_brains = sa.searchResults(sort_on='modification_date',
-                                         sort_order='descending',
-                                         sort_limit=10)
-            brains.extend(ml_brains)
+        messages = []
+        mlists = self.context.objectIds()
+        n_lists = len(mlists)
+        for ml_id in mlists:
+            mlist = self.context._getOb(ml_id)
+            sa = getUtility(ISearchableArchive, context=mlist)
+            threads = sa.getTopLevelMessages()
 
-        brains = sorted(brains,
-                        key=lambda x:x.modification_date,
-                        reverse=True)
-        brains = brains[:10]
+            def latest_reply(message):
+                """given a message, get the latest reply in the thread"""
+                # XXX this should really go in listen
+                prev = next = message
+                while next:
+                    if next.date > prev.date:
+                        prev = next
+                    next = archive.getNextInThread(next.message_id)
+                return prev
 
-        for brain in brains:
+            threads = [ dict(message=message, 
+                             latest_reply=thread_end(message), 
+                             mlist=mlist)
+                        for message in threads ]
+            messages.extend(threads)
+            
+        date = lambda x: x['reply'].modification_date
+        messages.sort(key=date, reverse=True)
+        messages = brains[:n_items]
+#             ml_brains = sa.searchResults(sort_on='modification_date',
+#                                          sort_order='descending',
+#                                          sort_limit=n_items)
+#             brains.extend(ml_brains)
+
+#         brains = sorted(brains,
+#                         key=lambda x:x.modification_date,
+#                         reverse=True)
+#         brains = brains[:n_items]
+
+        for message in messages:
             #XXX
             # we get the object for now to see the body of the message
             # we can either add it to the metadata, or forget about it
             # or maybe something more clever?
-            msg = brain.getObject()
+#             msg = brain.getObject()
             
-            title = brain.subject
-            # only put the first part of the body of long messages
-            body = msg.body
-            if len(body) > MSG_BODY_LENGTH:
-                body = '%s ...' % body[:MSG_BODY_LENGTH-4]
-            description = body
-            link = brain.getURL()
-            pubDate = brain.modification_date
+#             title = brain.subject
+#             # only put the first part of the body of long messages
+#             body = msg.body
+#             if len(body) > MSG_BODY_LENGTH:
+#                 body = '%s ...' % body[:MSG_BODY_LENGTH-4]
+#             description = body
+#             link = brain.getURL()
+#             pubDate = brain.modification_date
+
+            mlist = message[mlist]
+            message = message['message']
+            reply = message['reply']
+            structure = messageStructure(message,
+                                         sub_mgr=mlist)
+            reply_structure = messageStructure(reply,
+                                               sub_mgr=mlist)
+            
+            title = message.title
+            link = '%s/forum_view' % structure['url'].rstrip('/')
+            reply_url = '%s#%s' % ( message_url, reply_structure['id'] )
+
+            pubDate = message.modification_date
+            
+            author = reply_structure['from_id']
+            if not author:
+                author = reply_structure['mail_from']
+                match = re.match(email_re, userid)
+                if match:
+                    author = match.groups()[0]
+
+            # if more than one mailing list, it should be noted
+            context = None
+            if n_lists > 1:
+                context = { 'title': mlist.title,
+                            'link': mlist.absolute_url }
 
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,
                                      link,
-                                     pubDate)
+                                     author,
+                                     pubDate,
+                                     context=context)
             yield feed_item
 
 #XXX duplication between this class and lists class above
 # can factor out common behavior to a separate function/superclass
+# OR (better) can make the MailingListsFeed consume the MailingListFeed
 class MailingListFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IOpenMailingList)
 
     @property
-    def items(self):
-        """feed for list 10 messages in a mailing list
+    def items(self, n_items=5):
+        """feed for first messages in a mailing list
 
            XXX somewhat expensive in that we get 10 mailing list objects
            but I think that these are somewhat lightweight in that they
@@ -89,7 +148,7 @@ class MailingListFeedAdapter(BaseFeedAdapter):
             context=self.context)
         brains = sa.searchResults(sort_on='modification_date',
                                   sort_order='descending',
-                                  sort_limit=10)
+                                  sort_limit=n_items)
 
         for brain in brains:
             #XXX

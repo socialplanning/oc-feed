@@ -36,9 +36,10 @@
           by
           </span>
 
-          <a tal:omit-tag="not:entry/author/home"
-	     tal:attributes="href entry/author/home"
-             tal:content="entry/author/userid" />,
+          <a tal:define="author_home python:view.home(entry.author) + '/profile'"
+	     tal:omit-tag="not:author_home"
+	     tal:attributes="href author_home"
+             tal:content="entry/author">author</a>,
              <span tal:define="date entry/pubDate"
                      tal:replace="python:view.pretty_date(date)"/>
 	  </span>

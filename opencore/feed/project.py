@@ -21,18 +21,19 @@ class ProjectFeedAdapter(BaseFeedAdapter):
     adapts(IProject)
 
     @property
-    def items(self):
+    def items(self, n_items=5):
         cat = getToolByName(self.context, 'portal_catalog')
         for brain in cat(portal_type='Document',
                          path='/'.join(self.context.getPhysicalPath()),
                          sort_on='modified',
                          sort_order='descending',
-                         sort_limit=10):
+                         sort_limit=n_items):
 
             title = brain.Title
             #XXX would be nice if the description was the revision note
-            #maybe we should index it that way?
+            #we should index it that way
             description = brain.Description
+            author = brain.lastModifiedAuthor
             link = brain.getURL()
             pubDate = brain.modified
             #XXX maybe we should stick the body in here as well?
@@ -46,5 +47,6 @@ class ProjectFeedAdapter(BaseFeedAdapter):
                                      title,
                                      description,
                                      link,
+                                     author,
                                      pubDate)
             yield feed_item
