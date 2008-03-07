@@ -5,7 +5,7 @@
   <browser:page
      for="opencore.feed.interfaces.ICanFeed"
      name="rss"
-     class=".view.RssView"
+     class=".view.FeedView"
      template="rss.pt"
      permission="zope2.View"
      />
@@ -13,9 +13,18 @@
   <browser:page
      for="opencore.feed.interfaces.ICanFeed"
      name="atom"
-     class=".view.RssView"
+     class=".view.FeedView"
      template="atom.pt"
      permission="zope2.View"
      />
+
+  <browser:page
+     for="opencore.feed.interfaces.ICanFeed"
+     name="feed"
+     class=".view.FeedView"
+     template="feed_snippet.pt"
+     permission="zope2.View"
+     />
+
 
 </configure>
