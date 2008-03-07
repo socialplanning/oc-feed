@@ -18,13 +18,13 @@
      permission="zope2.View"
      />
 
-  <browser:page
+  <!-- no feed_snippet.pt file -->
+  <!--browser:page
      for="opencore.feed.interfaces.ICanFeed"
      name="feed"
      class=".view.FeedView"
      template="feed_snippet.pt"
      permission="zope2.View"
-     />
-
+     /-->
 
 </configure>
