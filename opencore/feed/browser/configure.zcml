@@ -18,21 +18,4 @@
      permission="zope2.View"
      />
 
-  <!-- registrations for the topnav actions -->
-  <browser:viewlet
-     name="10 RSS"
-     manager="opencore.browser.topnav.interfaces.ITopnavActions"
-     for="opencore.feed.interfaces.ICanFeed"
-     template="rss_action.pt"
-     permission="zope2.View"
-     />
-
-  <browser:viewlet
-     name="20 Atom"
-     manager="opencore.browser.topnav.interfaces.ITopnavActions"
-     for="opencore.feed.interfaces.ICanFeed"
-     template="atom_action.pt"
-     permission="zope2.View"
-     />
-
 </configure>
