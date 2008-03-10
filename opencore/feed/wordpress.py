@@ -18,6 +18,10 @@ class WordpressFeedAdapter(BaseFeedAdapter):
     title = 'Blog'
 
     @property
+    def link(self):
+        return '%s/blog' % self.context.absolute_url()
+
+    @property
     def items(self, n_items=5):
 
         # without the trailing slash, one gets different results!
