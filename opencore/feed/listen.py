@@ -6,6 +6,7 @@ from Products.listen.interfaces import ISearchableArchive
 from Products.listen.lib.browser_utils import messageStructure
 from opencore.featurelets.interfaces import IListenContainer
 from opencore.feed.base import BaseFeedAdapter
+from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
 from opencore.feed.interfaces import IFeedItem
 from zope.component import adapts
@@ -22,7 +23,8 @@ class ListsFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IListenContainer)
 
-#    @property
+    title = 'Discussions'
+
     def items(self, n_items=5):
         """we aggregate the most recent messages across all mailing lists,
            then sort those by date and take the top n_items
@@ -54,7 +56,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
                 return prev
 
             threads = [ dict(message=message, 
-                             latest_reply=thread_end(message), 
+                             reply=latest_reply(message), 
                              mlist=mlist)
                         for message in threads ]
             messages.extend(threads)
@@ -88,19 +90,19 @@ class ListsFeedAdapter(BaseFeedAdapter):
 #             link = brain.getURL()
 #             pubDate = brain.modification_date
 
-            mlist = message[mlist]
-            message = message['message']
             reply = message['reply']
+            mlist = message['mlist']
+            message = message['message']
+
             structure = messageStructure(message,
                                          sub_mgr=mlist)
             reply_structure = messageStructure(reply,
                                                sub_mgr=mlist)
             
-            title = message.title
             link = '%s/forum_view' % structure['url'].rstrip('/')
-            reply_url = '%s#%s' % ( message_url, reply_structure['id'] )
+            reply_url = '%s#%s' % ( link, reply_structure['id'] )
 
-            pubDate = message.modification_date
+            pubDate = reply.modification_date
             
             author = reply_structure['from_id']
             if not author:
@@ -109,19 +111,33 @@ class ListsFeedAdapter(BaseFeedAdapter):
                 if match:
                     author = match.groups()[0]
 
+            title = structure['subject']
+            description = structure['subject']
+
             # if more than one mailing list, it should be noted
             context = None
             if n_lists > 1:
                 context = { 'title': mlist.title,
                             'link': mlist.absolute_url }
 
+            # deal with responses
+            responses = message.responses
+            if responses:
+                byline = 'latest by'
+                response = FeedItemResponses(responses, reply_url)
+            else:
+                response = None
+                byline = 'by'
+                
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,
                                      link,
                                      author,
                                      pubDate,
-                                     context=context)
+                                     context=context,
+                                     byline=byline,
+                                     responses=response)
             yield feed_item
 
 #XXX duplication between this class and lists class above

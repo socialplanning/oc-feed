@@ -34,10 +34,16 @@ class BaseFeedAdapter(object):
     def author(self):
         return self.context.Creator()
 
+
 class FeedItem(object):
     implements(IFeedItem)
 
-    def __init__(self, title, description, link, author, pubDate, body=None, context=None, byline=None):
+    def __init__(self, title, description, link, author, pubDate, body=None, context=None, byline=None, responses=None):
+        """
+        * context: dictionary containing { 'title':, 'link': of the appropriate context
+        * replies: should be FeedItemReplies instance
+        """
+
         self.title = title
         self.description = description
         self.link = link
@@ -51,3 +57,24 @@ class FeedItem(object):
             self.context = context
         if byline:
             self.byline = byline
+        if responses:
+            self.responses = responses
+
+     
+class FeedItemResponses(object):
+    def __init__(self, number, link, name=None, plural=None):
+        self.number = number
+        self.link = link
+        if name is None:
+            self.name = 'reply'
+            self.plural = 'replies'
+        else:
+            self.name = name
+            if plural is None:
+                self.plural = '%ss' % name
+        
+    def reply_string(self):
+        if self.number == 1:
+            return '%s %s' % (self.number, self.name)
+        else:
+            return '%s %s' % (self.number, self.plural)
