@@ -1,5 +1,6 @@
 import feedparser
 from opencore.feed.base import BaseFeedAdapter
+from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
 from opencore.feed.interfaces import IFeedItem
 from opencore.interfaces import IProject
@@ -14,7 +15,9 @@ class WordpressFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IProject)
 
-#    @property
+    title = 'Blog'
+
+    @property
     def items(self, n_items=5):
 
         # without the trailing slash, one gets different results!
@@ -34,26 +37,21 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
         # sort comments to entries
         for entry in feed.entries:
-            comment_feed = '%scomments/feed/' % entry.link
-            comments = feedparser.parse(comment_feed)
-            entry.n_comments = int(entry['slash_comments'])
+            n_comments = int(entry.get('slash_comments', 0))
 
-#             if entry.n_comments == 1:
-#                 entry.comment_string = '1 comment'
-#             else:
-#                 entry.comment_string = '%s comments' % entry.n_comments
-                
-            # annote members onto the entries
-            author = entry.author
-            
-            title = entry.title
-            pubDate = entry.date
+            if n_comments:
+                response = FeedItemResponses(n_comments,
+                                             entry.comments,
+                                             'comment')
+            else:
+                response=None
 
             feed_item = createObject('opencore.feed.feeditem',
                                      entry.title,
                                      entry.summary,
                                      entry.link,
                                      entry.author,
-                                     entry.date)
+                                     entry.date,
+                                     responses=response)
 
             yield feed_item

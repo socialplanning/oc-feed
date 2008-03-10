@@ -25,6 +25,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
 
     title = 'Discussions'
 
+    @property
     def items(self, n_items=5):
         """we aggregate the most recent messages across all mailing lists,
            then sort those by date and take the top n_items
@@ -64,32 +65,14 @@ class ListsFeedAdapter(BaseFeedAdapter):
         date = lambda x: x['reply'].modification_date
         messages.sort(key=date, reverse=True)
         messages = messages[:n_items]
-#             ml_brains = sa.searchResults(sort_on='modification_date',
-#                                          sort_order='descending',
-#                                          sort_limit=n_items)
-#             brains.extend(ml_brains)
-
-#         brains = sorted(brains,
-#                         key=lambda x:x.modification_date,
-#                         reverse=True)
-#         brains = brains[:n_items]
 
         for message in messages:
             #XXX
             # we get the object for now to see the body of the message
             # we can either add it to the metadata, or forget about it
             # or maybe something more clever?
-#             msg = brain.getObject()
+            #             msg = brain.getObject()
             
-#             title = brain.subject
-#             # only put the first part of the body of long messages
-#             body = msg.body
-#             if len(body) > MSG_BODY_LENGTH:
-#                 body = '%s ...' % body[:MSG_BODY_LENGTH-4]
-#             description = body
-#             link = brain.getURL()
-#             pubDate = brain.modification_date
-
             reply = message['reply']
             mlist = message['mlist']
             message = message['message']
