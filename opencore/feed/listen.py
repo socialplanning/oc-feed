@@ -128,7 +128,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
             else:
                 response = None
                 byline = 'by'
-                
+
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,

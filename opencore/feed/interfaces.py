@@ -8,6 +8,9 @@ from zope.schema import TextLine
 class ICanFeed(Interface):
     """Marker interface to mean that component can create feeds"""
 
+class IHasFeed(Interface):
+    """Marker interface to mean that component has feeds"""
+
 class IFeedData(Interface):
     """interface to expose necessary data for feed creation"""
 
@@ -25,6 +28,9 @@ class IFeedData(Interface):
                       description=u'Author of the feed')
     items = Iterable(title=u'Feed items',
                      description=u'Items the feed is providing')
+
+class IHasFeedData(IFeedData):
+    """marker interface"""
 
 class IFeedItem(Interface):
     """interface that each feed item should implement"""

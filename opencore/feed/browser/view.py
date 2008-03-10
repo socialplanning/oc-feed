@@ -1,4 +1,5 @@
 from opencore.feed.interfaces import IFeedData
+from opencore.feed.interfaces import IHasFeedData
 from opencore.member.utils import profile_path
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
@@ -27,3 +28,8 @@ class FeedView(BrowserView):
         portal = getToolByName(self.context.context, 
                                'portal_url')
         return portal()
+
+class HasFeedView(FeedView):
+    def __init__(self, context, request):
+        adapted = IHasFeedData(context)
+        super(FeedView, self).__init__(adapted, request)

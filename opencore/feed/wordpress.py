@@ -1,5 +1,11 @@
 import feedparser
 from opencore.feed.base import BaseFeedAdapter
+from opencore.feed.interfaces import IFeedData
+from opencore.feed.interfaces import IFeedItem
+from opencore.interfaces import IProject
+from zope.component import adapts
+from zope.component import createObject
+from zope.interface import implements
 
 class WordpressFeedAdapter(BaseFeedAdapter):
     """feed for recent wordpress blogs"""
@@ -8,17 +14,13 @@ class WordpressFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IProject)
 
-    def __init__(self, context):
-        BaseFeedAdapter(self, context)
-        
+#    @property
+    def items(self, n_items=5):
+
         # without the trailing slash, one gets different results!
         # see http://trac.openplans.org/openplans/ticket/2197#comment:3
-        uri = '%s/blog/feed/' % context.absolute_url()
+        uri = '%s/blog/feed/' % self.context.absolute_url()
         feed = feedparser.parse(uri)
-
-
-    @property
-    def items(self, n_items=5):
         
         try:
             title = feed.feed.title
@@ -28,7 +30,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
         # maybe this should be done after comments?
         # feed.entries.sort(key=date_key) # they appeared sorted already?
-        feed.entries = feed.entries[:n]
+        feed.entries = feed.entries[:n_items]
 
         # sort comments to entries
         for entry in feed.entries:
@@ -42,13 +44,16 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 #                 entry.comment_string = '%s comments' % entry.n_comments
                 
             # annote members onto the entries
-            membrane_tool = self.get_tool('membrane_tool')
-            for entry in feed.entries:
-                members = membrane_tool(getId=entry.author)
-                if len(members) == 1:
-                    entry.member = members[0].getObject() # XXX necessary to keep track of these?
+            author = entry.author
+            
+            title = entry.title
+            pubDate = entry.date
 
-                else:
-                    entry.member = None
+            feed_item = createObject('opencore.feed.feeditem',
+                                     entry.title,
+                                     entry.summary,
+                                     entry.link,
+                                     entry.author,
+                                     entry.date)
 
-            yield entry # no! bad!
+            yield feed_item
