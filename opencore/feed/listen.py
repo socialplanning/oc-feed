@@ -22,7 +22,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IListenContainer)
 
-    @property
+#    @property
     def items(self, n_items=5):
         """we aggregate the most recent messages across all mailing lists,
            then sort those by date and take the top n_items
@@ -40,8 +40,8 @@ class ListsFeedAdapter(BaseFeedAdapter):
         n_lists = len(mlists)
         for ml_id in mlists:
             mlist = self.context._getOb(ml_id)
-            sa = getUtility(ISearchableArchive, context=mlist)
-            threads = sa.getTopLevelMessages()
+            archive = getUtility(ISearchableArchive, context=mlist)
+            threads = archive.getToplevelMessages()
 
             def latest_reply(message):
                 """given a message, get the latest reply in the thread"""
@@ -61,7 +61,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
             
         date = lambda x: x['reply'].modification_date
         messages.sort(key=date, reverse=True)
-        messages = brains[:n_items]
+        messages = messages[:n_items]
 #             ml_brains = sa.searchResults(sort_on='modification_date',
 #                                          sort_order='descending',
 #                                          sort_limit=n_items)
