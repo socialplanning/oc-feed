@@ -26,6 +26,14 @@ class ListsFeedAdapter(BaseFeedAdapter):
     title = 'Discussions'
 
     @property
+    def mlists(self):
+        return self.context.objectIds()
+
+    def threads(self, mlist):
+        archive = getUtility(ISearchableArchive, context=mlist)
+        threads = archive.getToplevelMessages()        
+
+    @property
     def items(self, n_items=5):
         """we aggregate the most recent messages across all mailing lists,
            then sort those by date and take the top n_items
@@ -39,7 +47,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
         MSG_BODY_LENGTH = 300
 
         messages = []
-        mlists = self.context.objectIds()
+        mlists = self.mlists
         n_lists = len(mlists)
         for ml_id in mlists:
             mlist = self.context._getOb(ml_id)
@@ -122,6 +130,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
                                      byline=byline,
                                      responses=response)
             yield feed_item
+
 
 #XXX duplication between this class and lists class above
 # can factor out common behavior to a separate function/superclass

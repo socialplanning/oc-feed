@@ -38,7 +38,7 @@
   <adapter
      for="opencore.interfaces.IProject"
      provides="opencore.feed.interfaces.IFeedData"
-     factory=".project.ProjectFeedAdapter"
+     factory=".project.WikiFeedAdapter"
      />
 
   <adapter

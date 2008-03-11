@@ -34,5 +34,26 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="opencore.feed.interfaces.ICanFeed"
+     name="blank-slate-feed"
+     class=".view.BlankSlateFeedView"
+     template="feed_snippet.pt"
+     permission="zope2.View"
+     />
+
+  <!-- adapters for blank slates -->
+
+   <adapter
+      for="opencore.featurelets.interfaces.IListenContainer"
+      provides="opencore.feed.interfaces.IFeedBlankSlate"
+      factory=".blankslate.ListsFeedBlankSlate"
+      />
+
+   <adapter
+      for="opencore.interfaces.IProject"
+      provides="opencore.feed.interfaces.IFeedBlankSlate"
+      factory=".blankslate.WikiFeedBlankSlate"
+      />
 
 </configure>

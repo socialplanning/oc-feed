@@ -1,5 +1,6 @@
 from zope.interface import Interface
 from zope.schema import ASCII
+from zope.schema import Bool
 from zope.schema import Datetime
 from zope.schema import Iterable
 from zope.schema import Text
@@ -30,7 +31,15 @@ class IFeedData(Interface):
                      description=u'Items the feed is providing')
 
 class IHasFeedData(IFeedData):
-    """marker interface"""
+    """marker interface so that components can have two feeds"""
+
+class IFeedBlankSlate(IFeedData):
+    """interface for feeds with a blank-slate template"""
+    blankslate = TextLine(title=u'Blank slate',
+                          description=u'Name of the page template file')
+    is_blank = Bool(title=u'is blank?',
+                    description=u'whether the feed is blank or not')
+    
 
 class IFeedItem(Interface):
     """interface that each feed item should implement"""

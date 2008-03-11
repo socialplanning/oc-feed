@@ -9,7 +9,7 @@ from zope.component import createObject
 from zope.interface import alsoProvides
 from zope.interface import implements
 
-class ProjectFeedAdapter(BaseFeedAdapter):
+class WikiFeedAdapter(BaseFeedAdapter):
     """feed for wiki page modifications in project
        XXX or should this be only for new pages?
        probably want this to be across all changes within the project
