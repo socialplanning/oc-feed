@@ -1,0 +1,22 @@
+<div class="oc-widget oc-widget-feed oc-column">
+  <h2 class="oc-feed-title">
+    <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a>     
+  </h2>
+  
+  <span tal:replace="view/number_of_members">9 members</span>
+  
+  <ul class="oc-feed-list" tal:condition="context/items">
+    <li class="oc-feed-item oc-clearAfter" tal:repeat="entry context/items">
+      
+      <div tal:define="author entry/author | nothing">
+	<img tal:attributes="src python:view.portrait(author)" />
+        <div class="oc-feed-item-data oc-discreetText">	  
+            <a tal:define="author_home python:view.home(author)"
+	       tal:omit-tag="not:author"
+	       tal:attributes="href author_home"
+	       tal:content="author">author</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

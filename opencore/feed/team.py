@@ -16,11 +16,19 @@ class TeamFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IProject)
 
+    title = 'Team'
+    
+    @property
+    def link(self):
+        return '%s/team' % self.context.absolute_url()
+
     @property
     def items(self, n_items=12):
         
+        # TODO: sorting
+
         for member in self.context.projectMembers():
-            link = profile_path(member_id)
+            link = profile_path(member.id)
             feed_item = createObject('opencore.feed.feeditem',
                                      member.id,
                                      member.fullname,

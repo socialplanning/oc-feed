@@ -1,6 +1,3 @@
-<div tal:condition="view/context/is_blank | nothing">
-  
-</div>
 <div class="oc-widget oc-widget-feed oc-column">
   <h2 class="oc-feed-title">
     <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a>     
@@ -34,7 +31,6 @@
 	</a>	   
 
       </span>
-
 
         <div class="oc-feed-item-data oc-discreetText">
 

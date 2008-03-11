@@ -27,14 +27,6 @@
      />
 
   <browser:page
-     for="opencore.feed.interfaces.IHasBlogFeed"
-     name="blogfeed"
-     class=".view.BlogFeedView"
-     template="feed_snippet.pt"
-     permission="zope2.View"
-     />
-
-  <browser:page
      for="opencore.feed.interfaces.ICanFeed"
      name="blank-slate-feed"
      class=".view.BlankSlateFeedView"
@@ -42,23 +34,25 @@
      permission="zope2.View"
      />
 
+  <!-- views for blank slates -->
   <browser:page
      for="opencore.interfaces.IProject"
-     name="blogfeed-blankslate"
+     name="blogfeed"
      class=".blankslate.BlankSlateBlogFeedView"
-     template="feed_snippet.pt"
+     template="portrait_feed_snippet.pt"
      permission="zope2.View"
      />
 
   <browser:page
      for="opencore.interfaces.IProject"
-     name="teamfeed-blankslate"
+     name="teamfeed"
      class=".blankslate.BlankSlateTeamFeedView"
-     template="feed_snippet.pt"
+     template="team_feed_snippet.pt"
      permission="zope2.View"
      />
 
   <!-- adapters for blank slates -->
+  <!-- XXX NEEDED? -->
 
    <adapter
       for="opencore.featurelets.interfaces.IListenContainer"
