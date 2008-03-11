@@ -27,9 +27,9 @@
      />
 
   <browser:page
-     for="opencore.feed.interfaces.IHasFeed"
+     for="opencore.feed.interfaces.IHasBlogFeed"
      name="blogfeed"
-     class=".view.HasFeedView"
+     class=".view.BlogFeedView"
      template="feed_snippet.pt"
      permission="zope2.View"
      />
@@ -38,6 +38,14 @@
      for="opencore.feed.interfaces.ICanFeed"
      name="blank-slate-feed"
      class=".view.BlankSlateFeedView"
+     template="feed_snippet.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="opencore.interfaces.IProject"
+     name="blogfeed-blankslate"
+     class=".blankslate.BlankSlateBlogFeedView"
      template="feed_snippet.pt"
      permission="zope2.View"
      />

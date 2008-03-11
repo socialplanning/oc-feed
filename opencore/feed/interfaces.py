@@ -9,7 +9,10 @@ from zope.schema import TextLine
 class ICanFeed(Interface):
     """Marker interface to mean that component can create feeds"""
 
-class IHasFeed(Interface):
+class IHasBlogFeed(Interface):
+    """Marker interface to mean that component has feeds"""
+
+class IHasTeamFeed(Interface):
     """Marker interface to mean that component has feeds"""
 
 class IFeedData(Interface):
@@ -30,8 +33,11 @@ class IFeedData(Interface):
     items = Iterable(title=u'Feed items',
                      description=u'Items the feed is providing')
 
-class IHasFeedData(IFeedData):
-    """marker interface so that components can have two feeds"""
+class IBlogFeedData(IFeedData):
+    """marker interface so that projects can have multiple feeds"""
+
+class ITeamFeedData(IFeedData):
+    """marker interface so that projects can have multiple feeds"""
 
 class IFeedBlankSlate(IFeedData):
     """interface for feeds with a blank-slate template"""

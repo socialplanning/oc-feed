@@ -14,7 +14,7 @@
 
   <five:implements
      class="Products.OpenPlans.content.project.OpenProject"
-     interface="opencore.feed.interfaces.IHasFeed"
+     interface="opencore.feed.interfaces.IHasBlogFeed"
      />
 
 <!--
@@ -43,8 +43,14 @@
 
   <adapter
      for="opencore.interfaces.IProject"
-     provides="opencore.feed.interfaces.IHasFeedData"
+     provides="opencore.feed.interfaces.IBlogFeedData"
      factory=".wordpress.WordpressFeedAdapter"
+     />
+
+  <adapter
+     for="opencore.interfaces.IProject"
+     provides="opencore.feed.interfaces.ITeamFeedData"
+     factory=".team.TeamFeedAdapter"
      />
 
   <adapter
@@ -75,7 +81,7 @@
       for="opencore.interfaces.IOpenPage"
       provides="opencore.feed.interfaces.IFeedData"
       factory=".page.PageFeedAdapter"
-      />
+      />   
 
   <include package=".browser" />
 

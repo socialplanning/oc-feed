@@ -1,11 +1,13 @@
+from opencore.feed.interfaces import IBlogFeedData
 from opencore.feed.interfaces import IFeedBlankSlate
 from opencore.feed.interfaces import IFeedData
-from opencore.feed.interfaces import IHasFeedData
+from opencore.feed.interfaces import IHasBlogFeed
 from opencore.member.utils import profile_path
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from topp.utils.pretty_date import prettyDate
+from zope.component import queryAdapter
 
 
 class FeedView(BrowserView):
@@ -13,8 +15,10 @@ class FeedView(BrowserView):
        as promised by marker interface ICanFeed"""
 
     def __init__(self, context, request):
-        adapted = IFeedData(context)
+#        adapted = IFeedData(context)
+        adapted = queryAdapter(context, IFeedData)
         super(FeedView, self).__init__(adapted, request)
+        import pdb;  pdb.set_trace()
 
     def pretty_date(self, date):
         # XXX this is copy/pasted
@@ -32,9 +36,9 @@ class FeedView(BrowserView):
                                'portal_url')
         return portal()
 
-class HasFeedView(FeedView):
+class BlogFeedView(FeedView):
     def __init__(self, context, request):
-        adapted = IHasFeedData(context)
+        adapted = IBlogFeedData(context)
         super(FeedView, self).__init__(adapted, request)
 
 class BlankSlateFeedView(FeedView):
@@ -44,3 +48,5 @@ class BlankSlateFeedView(FeedView):
         super(FeedView, self).__init__(adapted, request)
         if self.context.is_blank:
             self.index = ZopeTwoPageTemplateFile(self.context.blankslate)
+
+    

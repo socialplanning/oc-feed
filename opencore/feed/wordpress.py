@@ -39,7 +39,6 @@ class WordpressFeedAdapter(BaseFeedAdapter):
         # feed.entries.sort(key=date_key) # they appeared sorted already?
         feed.entries = feed.entries[:n_items]
 
-        # sort comments to entries
         for entry in feed.entries:
             n_comments = int(entry.get('slash_comments', 0))
 
