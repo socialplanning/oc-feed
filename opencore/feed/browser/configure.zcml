@@ -50,6 +50,14 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="opencore.interfaces.IProject"
+     name="teamfeed-blankslate"
+     class=".blankslate.BlankSlateTeamFeedView"
+     template="feed_snippet.pt"
+     permission="zope2.View"
+     />
+
   <!-- adapters for blank slates -->
 
    <adapter

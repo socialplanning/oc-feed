@@ -18,7 +18,6 @@ class FeedView(BrowserView):
 #        adapted = IFeedData(context)
         adapted = queryAdapter(context, IFeedData)
         super(FeedView, self).__init__(adapted, request)
-        import pdb;  pdb.set_trace()
 
     def pretty_date(self, date):
         # XXX this is copy/pasted

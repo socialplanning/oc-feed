@@ -1,5 +1,6 @@
 from opencore.feed.browser.view import FeedView
 from opencore.feed.interfaces import IBlogFeedData
+from opencore.feed.interfaces import ITeamFeedData
 from opencore.feed.interfaces import IFeedBlankSlate
 from opencore.feed.listen import ListsFeedAdapter
 from opencore.feed.project import WikiFeedAdapter
@@ -36,14 +37,6 @@ class WikiFeedBlankSlate(WikiFeedAdapter):
             return False
         histories = brains[0].getObject().getHistories()
         return len(list(histories)) < 2
-
-class BlogFeedBlankSlate(WordpressFeedAdapter):
-    implements(IFeedBlankSlate)
-    
-    blankslate = 'blog_blank_slate.pt'
-    @property 
-    def is_blank(self):
-        return not len(self.items)
     
 class BlankSlateBlogFeedView(FeedView):
 
@@ -61,3 +54,6 @@ class BlankSlateTeamFeedView(FeedView):
 
     def __init__(self, context, request):
         adapted = ITeamFeedData(context)
+        super(FeedView, self).__init__(adapted, request)
+        if len(context.projectMemberIds()) < 1: # FIX ME!
+            self.index = ZopeTwoPageTemplateFile(self.blankslate)

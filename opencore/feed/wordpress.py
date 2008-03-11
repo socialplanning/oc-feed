@@ -49,8 +49,12 @@ class WordpressFeedAdapter(BaseFeedAdapter):
             else:
                 response=None
 
+            title = entry.title
+            if not title.strip():
+                title = entry.summary
+
             feed_item = createObject('opencore.feed.feeditem',
-                                     entry.title,
+                                     title,
                                      entry.summary,
                                      entry.link,
                                      entry.author,
