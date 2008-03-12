@@ -56,7 +56,7 @@ class BlankSlateTeamFeedView(FeedView):
         adapted = ITeamFeedData(context)
         super(FeedView, self).__init__(adapted, request)
         self.n_members = len(context.projectMemberIds())
-        if  self.n_members < 1: # FIX ME!
+        if  self.n_members < 2:
             self.index = ZopeTwoPageTemplateFile(self.blankslate)
 
     def number_of_members(self):
