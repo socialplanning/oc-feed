@@ -22,12 +22,22 @@ class TeamFeedAdapter(BaseFeedAdapter):
     def link(self):
         return '%s/team' % self.context.absolute_url()
 
+    def team_sort(self, member):
+        """
+        sorting function for member display on project latest activity page
+        """
+        # could also sort by admin-ness, lastlogin, etc
+        return bool(member.getProperty('portrait', None))
+
+
     @property
     def items(self, n_items=12):
         
-        # TODO: sorting
+        members = list(self.context.projectMembers())
+        members.sort(key=self.team_sort)
+        member = members[:n_items]
 
-        for member in self.context.projectMembers():
+        for member in members:
             link = profile_path(member.id)
             feed_item = createObject('opencore.feed.feeditem',
                                      member.id,
