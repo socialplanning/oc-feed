@@ -22,6 +22,7 @@ Stub a sample result
     ...     Title='Dummy title'
     ...     Description='Dummy description'
     ...     created=datetime.now()
+    ...	    lastModifiedAuthor = "Whoever"
     ...     def getURL(self):
     ...         return 'http://dummy/projects/url'
 
@@ -53,3 +54,5 @@ And finally check the object
     datetime.datetime...
     >>> feed_item.link
     'http://dummy/projects/url'
+    >>> feed_item.author
+    'Whoever'

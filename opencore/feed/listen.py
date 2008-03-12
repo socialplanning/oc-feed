@@ -143,7 +143,7 @@ class MailingListFeedAdapter(BaseFeedAdapter):
     def items(self, n_items=5):
         """feed for first messages in a mailing list
 
-           XXX somewhat expensive in that we get 10 mailing list objects
+           XXX somewhat expensive in that we get n_items mailing list objects
            but I think that these are somewhat lightweight in that they
            inherit from OFS.Folder
            """
@@ -173,10 +173,12 @@ class MailingListFeedAdapter(BaseFeedAdapter):
             description = body
             link = brain.getURL()
             pubDate = brain.modification_date
+            author = msg.owner_info()['id']
 
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,
                                      link,
+                                     author,
                                      pubDate)
             yield feed_item

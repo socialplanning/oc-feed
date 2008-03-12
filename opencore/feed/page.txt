@@ -26,10 +26,11 @@ Which returns a stub page
     ...     def absolute_url(self):
     ...         return 'http://dummy/page/url'
 
-Here's the sub result
+Here's the stub result
     >>> class StubResult(object):
     ...     object = StubPage()
     ...     comment='Dummy comment'
+    ...	    sys_metadata = dict(principal='Whoever')
 
 Instantiate the page feed adapter with the dummy context
     >>> from opencore.feed.page import PageFeedAdapter
@@ -59,3 +60,5 @@ And finally check the object
     datetime.datetime...
     >>> feed_item.link
     'http://dummy/page/url'
+    >>> feed_item.author
+    'Whoever'

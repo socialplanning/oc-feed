@@ -17,7 +17,6 @@
      interface="opencore.feed.interfaces.IHasBlogFeed"
      />
 
-<!--
   <five:implements
      class="opencore.content.page.OpenPage"
      interface="opencore.feed.interfaces.ICanFeed"
@@ -27,7 +26,6 @@
      class="opencore.listen.mailinglist.OpenMailingList"
      interface="opencore.feed.interfaces.ICanFeed"
      />
--->
 
   <utility
      provides="zope.component.interfaces.IFactory"

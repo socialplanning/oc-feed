@@ -23,10 +23,12 @@ class PageFeedAdapter(BaseFeedAdapter):
             title = page.Title()
             link = page.absolute_url()
             pubDate = page.modified()
+            author = version.sys_metadata.get('principal')
             #body = page.getText()
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,
                                      link,
+                                     author,
                                      pubDate)
             yield feed_item

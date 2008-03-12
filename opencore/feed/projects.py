@@ -16,22 +16,24 @@ class ProjectsFeedAdapter(BaseFeedAdapter):
     adapts(IAddProject)
 
     @property
-    def items(self):
+    def items(self, n_items=10):
         cat = getToolByName(self.context, 'portal_catalog')
         #XXX put in max depth 1 to not search subfolders
         for brain in cat(portal_type='OpenProject',
                               sort_on='created',
                               sort_order='descending',
-                              sort_limit=10):
+                              sort_limit=n_items):
 
             title = brain.Title
             description = brain.Description
             link = brain.getURL()
+            author = brain.lastModifiedAuthor
             pubDate = brain.created
 
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,
                                      link,
+                                     author,
                                      pubDate)
             yield feed_item

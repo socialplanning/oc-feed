@@ -34,10 +34,12 @@ class PeopleFeedAdapter(BaseFeedAdapter):
             link = '%s/profile' % url
 
             pubDate = brain.created
+            author = title
 
             feed_item = createObject('opencore.feed.feeditem',
                                      title,
                                      description,
                                      link,
+                                     author,
                                      pubDate)
             yield feed_item
