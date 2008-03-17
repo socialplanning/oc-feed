@@ -1,24 +1,22 @@
-<div class="oc-widget oc-widget-feed oc-column"
+<div class="oc-widget oc-widget-feed oc-column clearAfter"
      tal:define="lowertitle python:context.title.lower()"
      tal:attributes="id string:oc-feed-${lowertitle}">
-  <h2 class="oc-feed-title">
-    <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a>     
+  <h2 class="oc-feed-title clearAfter">
+    <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a> <span tal:content="view/number_of_members">9 members</span>  
   </h2>
-  
-  <span tal:replace="view/number_of_members">9 members</span>
-  
-  <ul class="oc-feed-list" tal:condition="context/items">
-    <li class="oc-feed-item oc-clearAfter" tal:repeat="entry context/items">
-      
-      <div tal:define="author entry/author | nothing">
-	<img tal:attributes="src python:view.portrait(author)" />
-        <div class="oc-feed-item-data oc-discreetText">	  
-            <a tal:define="author_home python:view.home(author)"
-	       tal:omit-tag="not:author"
+  <ul class="oc-feed-list clearAfter" tal:condition="context/items">
+    <li class="oc-feed-item oc-clearAfter" tal:repeat="entry context/items"> 
+      <p tal:define="author entry/author | nothing">
+	      <a tal:define="author_home python:view.home(author)" 
+		    tal:omit-tag="not:author" 
+		    tal:attributes="href author_home"><img tal:attributes="src python:view.portrait(author)" /></a>
+        <span class="oc-feed-item-data oc-discreetText">
+	        <a tal:define="author_home python:view.home(author)" 
+		     tal:omit-tag="not:author"
 	       tal:attributes="href author_home"
 	       tal:content="author">author</a>
-        </div>
-      </div>
+	     </span>
+      </p>
     </li>
   </ul>
 </div>

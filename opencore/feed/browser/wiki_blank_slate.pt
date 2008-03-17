@@ -1,1 +1,13 @@
-There is no wiki.
+<div id="oc-feed-pages" class="oc-widget oc-widget-feed oc-column">
+  <h2 class="oc-feed-title">
+    <a tal:attributes="href context/link">Pages</a>     
+  </h2>	
+  <div class="oc-blankSlate">
+    <img class="right" src="/++resource++img/touricons/wiki.gif" />
+    <p>Collaborate on ideas using Pages</p>
+    <!-- [FIXME] need to update the link -->
+    <p><a href="#">Home Page</a></p>
+    <!-- [FIXME] this next paragraph should only appear when tal:condition="view/team_manager" is true. also, need to update the link -->
+    <p><a href="#">Edit Pages</a></p>
+  </div>
+</div>

@@ -1,1 +1,14 @@
-No one is here!
+<div class="oc-widget oc-widget-feed oc-column clearAfter"
+     tal:define="lowertitle python:context.title.lower()"
+     tal:attributes="id string:oc-feed-${lowertitle}">
+  <h2 class="oc-feed-title clearAfter">
+    <a tal:attributes="href context/link">Team</a>
+  </h2>
+<!-- [FIXME] this next div should only appear when the feed is empty and the user the project owner. otherwise, it should pull in the project owner photo & name, just like the 'regular' feed. -->
+  <div class="oc-blankSlate">
+    <img src="/++resource++img/touricons/team.gif" />
+    <p>There are currently no members for this group.</p>
+    <!-- [FIXME] this next paragraph should only appear when tal:condition="view/team_manager" is true -->
+    <p><a i18n:translate="team-manage_send_email_invite" href="invite">Send an email to invite people to join</a></p>
+  </div>
+</div>

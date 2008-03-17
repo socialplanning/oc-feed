@@ -1,1 +1,11 @@
-There is no mailing lists.
+<div id="oc-feed-discussions" class="oc-widget oc-widget-feed oc-column">
+  <h2 class="oc-feed-title">
+    <a tal:attributes="href context/link">Discussion</a>     
+  </h2>	
+  <div class="oc-blankSlate">
+    <img src="/++resource++img/touricons/mailinglist.gif" />
+    <p>There aren't any discussions for this project yet.</p>
+    <!-- [FIXME] this next paragraph should only appear when the viewer is logged in and is a member of the current project. also, need to update the link -->
+    <p><a href="#">Start a Discussion</a></p>
+  </div>
+</div>
