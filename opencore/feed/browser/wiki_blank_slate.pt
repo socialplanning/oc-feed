@@ -6,7 +6,8 @@
     <img class="right" src="/++resource++img/touricons/wiki.gif" />
     <p>Collaborate on ideas using Pages</p>
     <p><a tal:attributes="href view/context/link">Home Page</a></p>
-    <!-- [FIXME] this next paragraph should only appear when tal:condition="view/team_manager" is true. also, need to update the link -->
-    <p><a href="#">Edit Pages</a></p>
+    <!-- [FIXME] also, need to update the link -->
+    <p><a tal:condition="view/context/team_manager"
+          tal:attributes="href view/context/link">Edit Pages</a></p>
   </div>
 </div>

@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from opencore.configuration import DEFAULT_ROLES
 from opencore.interfaces.adding import IAddProject
 from opencore.interfaces import IProject
 from opencore.feed.base import BaseFeedAdapter
@@ -21,6 +22,24 @@ class WikiFeedAdapter(BaseFeedAdapter):
     adapts(IProject)
 
     title = 'Pages'
+
+    def team_manager(self):
+        """
+        Boolean method for checking if the current user
+        is a team manager of the adapted project. It seems
+        we can't let the project itself reach the publisher(?)
+        because it's not acquisition-wrapped. i think this is
+        because the template isn't really bound to a proper view
+        though i'm not quite sure either how this implementation
+        works or whether this is really the cause of the problem.
+
+        (maybe we should set __of__ manually in initialization?)
+        """
+        project = self.context
+        team = project.getTeams()[0]
+        membertool = getToolByName(project, 'portal_membership')
+        mem_id = membertool.getAuthenticatedMember().getId()
+        return team.getHighestTeamRoleForMember(mem_id) == DEFAULT_ROLES[-1]
 
     @property
     def link(self):
