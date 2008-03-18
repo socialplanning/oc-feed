@@ -6,7 +6,7 @@
   <div class="oc-blankSlate">
     <img src="/++resource++img/touricons/blog.gif" />
     <p>Voice your ideas through a Project Blog!</p>
-    <!-- [FIXME] this next paragraph should only appear when the user has permissions to write a post. also, need to update the link  -->
-    <p><a href="#">Write a Post</a></p>
+    <!-- [FIXME] this next paragraph should only appear when the user has permissions to write a post. -->
+    <p><a tal:attributes="href string:${view/context/link}/wp-admin/post-new.php">Write a Post</a></p>
   </div>
 </div>
