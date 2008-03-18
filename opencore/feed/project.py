@@ -23,7 +23,7 @@ class WikiFeedAdapter(BaseFeedAdapter):
 
     title = 'Pages'
 
-    def team_manager(self):
+    def is_project_admin(self):
         """
         Boolean method for checking if the current user
         is a team manager of the adapted project. It seems
