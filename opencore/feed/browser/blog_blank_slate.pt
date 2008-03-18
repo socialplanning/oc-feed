@@ -1,12 +1,11 @@
-<!-- [FIXME] this should only appear when the viewer is logged in and is a member of the current project. Otherwise, this should return nil  -->
-<div id="oc-feed-blog" class="oc-widget oc-widget-feed oc-column">
+<div tal:condition="view/context/is_project_member"
+     id="oc-feed-blog" class="oc-widget oc-widget-feed oc-column">
   <h2 class="oc-feed-title">
     <a tal:attributes="href context/link">Blog</a>     
   </h2>	
   <div class="oc-blankSlate">
     <img src="/++resource++img/touricons/blog.gif" />
     <p>Voice your ideas through a Project Blog!</p>
-    <!-- [FIXME] this next paragraph should only appear when the user has permissions to write a post. -->
     <p><a tal:attributes="href string:${view/context/link}/wp-admin/post-new.php">Write a Post</a></p>
   </div>
 </div>

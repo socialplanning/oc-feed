@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 import feedparser
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.base import FeedItemResponses
@@ -16,6 +17,13 @@ class WordpressFeedAdapter(BaseFeedAdapter):
     adapts(IProject)
 
     title = 'Blog'
+
+    def is_project_member(self):
+        project = self.context
+        membertool = getToolByName(project, 'portal_membership')
+        mem_id = membertool.getAuthenticatedMember().getId()
+        team_ids = self.context.getTeams()[0].getActiveMemberIds()
+        return mem_id in team_ids
 
     @property
     def link(self):
