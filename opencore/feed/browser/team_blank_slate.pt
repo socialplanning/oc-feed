@@ -8,7 +8,8 @@
   <div class="oc-blankSlate">
     <img src="/++resource++img/touricons/team.gif" />
     <p>There are currently no members for this group.</p>
-    <!-- [FIXME] this next paragraph should only appear when tal:condition="view/team_manager" is true -->
-    <p><a i18n:translate="team-manage_send_email_invite" href="invite">Send an email to invite people to join</a></p>
+    <p><a tal:condition="view/context/is_project_admin"
+        i18n:translate="team-manage_send_email_invite" href="invite">
+        Send an email to invite people to join</a></p>
   </div>
 </div>
