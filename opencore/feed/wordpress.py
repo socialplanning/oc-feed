@@ -22,7 +22,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
         project = self.context
         membertool = getToolByName(project, 'portal_membership')
         mem_id = membertool.getAuthenticatedMember().getId()
-        team_ids = self.context.getTeams()[0].getActiveMemberIds()
+        team_ids = project.getTeams()[0].getActiveMemberIds()
         return mem_id in team_ids
 
     @property

@@ -5,7 +5,8 @@
   <div class="oc-blankSlate">
     <img src="/++resource++img/touricons/mailinglist.gif" />
     <p>There aren't any discussions for this project yet.</p>
-    <!-- [FIXME] this next paragraph should only appear when the viewer is logged in and is a member of the current project -->
-    <p><a tal:attributes="href string:${view/context/context/getId}/create">Start a Discussion</a></p>
+    <p tal:condition="view/context/is_project_member">
+      <a tal:attributes="href string:${view/context/context/getId}/create">
+        Start a Discussion</a></p>
   </div>
 </div>

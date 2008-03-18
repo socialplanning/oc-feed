@@ -25,6 +25,13 @@ class ListsFeedAdapter(BaseFeedAdapter):
 
     title = 'Discussions'
 
+    def is_project_member(self):
+        project = self.context.aq_parent
+        membertool = getToolByName(project, 'portal_membership')
+        mem_id = membertool.getAuthenticatedMember().getId()
+        team_ids = project.getTeams()[0].getActiveMemberIds()
+        return mem_id in team_ids
+
     @property
     def mlists(self):
         return self.context.objectIds()
