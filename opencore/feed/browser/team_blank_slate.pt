@@ -1,5 +1,5 @@
 <div class="oc-widget oc-widget-feed oc-column clearAfter"
-     tal:define="lowertitle python:context.title.lower()"
+     tal:define="lowertitle context/title/lower"
      tal:attributes="id string:oc-feed-${lowertitle}">
   <h2 class="oc-feed-title clearAfter">
     <a tal:attributes="href context/link">Team</a>
