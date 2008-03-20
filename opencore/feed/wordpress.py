@@ -36,6 +36,8 @@ class WordpressFeedAdapter(BaseFeedAdapter):
         # see http://trac.openplans.org/openplans/ticket/2197#comment:3
         uri = '%s/blog/feed/' % self.context.absolute_url()
         feed = feedparser.parse(uri)
+        # feedparser takes care of HTML sanitization:
+        # http://www.feedparser.org/docs/html-sanitization.html
         
         try:
             title = feed.feed.title
