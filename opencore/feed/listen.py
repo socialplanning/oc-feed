@@ -105,7 +105,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
             author = reply_structure['from_id']
             if not author:
                 author = reply_structure['mail_from']
-                match = re.match(email_re, userid)
+                match = re.match(email_re, author)
                 if match:
                     author = match.groups()[0]
 
