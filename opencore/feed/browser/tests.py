@@ -31,7 +31,6 @@ def test_suite():
     from opencore.interfaces.workflow import IReadWorkflowPolicySupport
     from opencore.listen.featurelet import ListenFeaturelet
     from opencore.nui.indexing import authenticated_memberid
-    from opencore.tasktracker.featurelet import TaskTrackerFeaturelet
     from opencore.testing import utils
     from pprint import pprint
     from topp.clockqueue.interfaces import IClockQueue
