@@ -23,7 +23,10 @@ class ListsFeedBlankSlate(ListsFeedAdapter):
             archive = getUtility(ISearchableArchive, context=mlist)
             if archive.getToplevelMessages():
                 return False
-        self.create = os.path.join(self.context.absolute_url(), self.mlists[0], 'archive', 'new_topic')
+        if self.mlists:
+            self.create = os.path.join(self.context.absolute_url(), self.mlists[0], 'archive', 'new_topic')
+        else:
+            self.create = os.path.join(self.context.absolute_url(), 'create')
         return True
 
 class WikiFeedBlankSlate(WikiFeedAdapter):
