@@ -1,3 +1,5 @@
+import os
+
 from opencore.feed.browser.view import FeedView
 from opencore.feed.interfaces import IBlogFeedData
 from opencore.feed.interfaces import ITeamFeedData
@@ -13,7 +15,6 @@ from zope.interface import implements
 
 class ListsFeedBlankSlate(ListsFeedAdapter):
     implements(IFeedBlankSlate)
-
     blankslate = 'lists_blank_slate.pt'
     @property
     def is_blank(self):
@@ -22,11 +23,11 @@ class ListsFeedBlankSlate(ListsFeedAdapter):
             archive = getUtility(ISearchableArchive, context=mlist)
             if archive.getToplevelMessages():
                 return False
+        self.create = os.path.join(self.context.absolute_url(), self.mlists[0], 'archive', 'new_topic')
         return True
 
 class WikiFeedBlankSlate(WikiFeedAdapter):
     implements(IFeedBlankSlate)
-
     blankslate = 'wiki_blank_slate.pt'
     @property
     def is_blank(self):
