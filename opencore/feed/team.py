@@ -52,8 +52,17 @@ class TeamFeedAdapter(BaseFeedAdapter):
     def items(self, n_items=12):
         
         members = list(self.context.projectMembers())
+        project = self.context
+
+        # XXX should probably go in Products.Openplans' project
+        # maybe related to docstring above while filtering by hand is necessary?
+        team = project.getTeams()[0]
+        wf = getToolByName(project, 'portal_workflow')
+        members = [ member for member in members 
+                    if wf.getInfoFor(team.getMembershipByMemberId(member.id), 'review_state') == 'public' ]
+
         members.sort(key=portrait_sort_key, reverse=True) # could also sort by admin-ness, lastlogin, etc
-        member = members[:n_items]
+        members = members[:n_items]
 
         for member in members:
             link = profile_path(member.id)
