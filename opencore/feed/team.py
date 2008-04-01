@@ -13,6 +13,11 @@ from zope.component import createObject
 from zope.interface import alsoProvides
 from zope.interface import implements
 
+def portrait_sort_key(member):
+    """sorting function for member display by portrait"""
+    return member.has_portrait()
+
+
 class TeamFeedAdapter(BaseFeedAdapter):
     implements(IFeedData)
     adapts(IProject)
@@ -41,19 +46,13 @@ class TeamFeedAdapter(BaseFeedAdapter):
     def link(self):
         return '%s/team' % self.context.absolute_url()
 
-    def team_sort(self, member):
-        """
-        sorting function for member display on project latest activity page
-        """
-        # could also sort by admin-ness, lastlogin, etc
-        return bool(member.getProperty('portrait', None))
 
 
     @property
     def items(self, n_items=12):
         
         members = list(self.context.projectMembers())
-        members.sort(key=self.team_sort)
+        members.sort(key=portrait_sort_key, reverse=True) # could also sort by admin-ness, lastlogin, etc
         member = members[:n_items]
 
         for member in members:
