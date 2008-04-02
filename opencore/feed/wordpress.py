@@ -1,5 +1,7 @@
-from Products.CMFCore.utils import getToolByName
 import feedparser
+import urllib2
+
+from Products.CMFCore.utils import getToolByName
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
@@ -35,7 +37,21 @@ class WordpressFeedAdapter(BaseFeedAdapter):
         # without the trailing slash, one gets different results!
         # see http://trac.openplans.org/openplans/ticket/2197#comment:3
         uri = '%s/blog/feed/' % self.context.absolute_url()
-        feed = feedparser.parse(uri)
+
+        # pull down the feed with the proper cookie
+        req = urllib2.Request(uri)
+        import pdb;  pdb.set_trace()
+        cookie = self.context.request.get_header('Cookie')
+        if cookie:
+            req.add_header('Cookie', cookie)
+        try:
+            feed = urllib2.urlopen(req).read()
+        except urllib2.HTTPError:
+            # fail silently for now
+            feed = ''
+
+        # parse with feedparser
+        feed = feedparser.parse(feed)
         # feedparser takes care of HTML sanitization:
         # http://www.feedparser.org/docs/html-sanitization.html
         
