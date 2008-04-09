@@ -36,16 +36,15 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
         (maybe we should set __of__ manually in initialization?)
         """
-        project = self.context
-        team = project.getTeams()[0]
-        membertool = getToolByName(project, 'portal_membership')
+        return self.context
         mem_id = membertool.getAuthenticatedMember().getId()
-        return team.getHighestTeamRoleForMember(mem_id) == DEFAULT_ROLES[-1]
+        if not mem_id:
+            return False
+        return mem_id in self.context.projectMembers(admin_only=True)
 
     @property
     def link(self):
         return '%s/team' % self.context.absolute_url()
-
 
 
     @property
