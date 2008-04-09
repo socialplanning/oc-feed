@@ -36,12 +36,8 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
         (maybe we should set __of__ manually in initialization?)
         """
-
-        membertool = getToolByName(project, 'portal_membership')
-        mem_id = membertool.getAuthenticatedMember().getId()
-        if not mem_id:
-            return False
-        return mem_id in self.context.projectMembers(admin_only=True)
+        # XXX this method is deprecated
+        return self.context.isProjectAdmin()
 
     @property
     def link(self):
