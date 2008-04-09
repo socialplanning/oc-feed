@@ -36,7 +36,8 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
         (maybe we should set __of__ manually in initialization?)
         """
-        return self.context
+
+        membertool = getToolByName(project, 'portal_membership')
         mem_id = membertool.getAuthenticatedMember().getId()
         if not mem_id:
             return False
