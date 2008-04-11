@@ -8,11 +8,9 @@ from opencore.featurelets.interfaces import IListenContainer
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
-from opencore.feed.interfaces import IFeedItem
 from zope.component import adapts
 from zope.component import getUtility
 from zope.component import createObject
-from zope.interface import alsoProvides
 from zope.interface import implements
 
 # regular expression to strip names from an email
