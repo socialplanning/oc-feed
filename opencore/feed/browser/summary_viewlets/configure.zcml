@@ -1,0 +1,26 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           >
+
+  <browser:viewlet
+     manager="opencore.project.browser.interfaces.ISummaryFeeds"
+     class=".blog.BlogSummaryViewlet"
+     name="blog"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     manager="opencore.project.browser.interfaces.ISummaryFeeds"
+     class=".wiki.WikiSummaryViewlet"
+     name="wiki"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     manager="opencore.project.browser.interfaces.ISummaryFeeds"
+     class=".discussions.DiscussionsSummaryViewlet"
+     name="discussions"
+     permission="zope2.View"
+     />
+
+</configure>

@@ -66,4 +66,6 @@
       factory=".blankslate.WikiFeedBlankSlate"
       />
 
+   <include package=".summary_viewlets" />
+
 </configure>
