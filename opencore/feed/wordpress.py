@@ -40,7 +40,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
         # pull down the feed with the proper cookie
         req = urllib2.Request(uri)
-        cookie = self.context.request.get_header('Cookie')
+        cookie = self.context.REQUEST.get_header('Cookie')
         if cookie:
             req.add_header('Cookie', cookie)
         try:
