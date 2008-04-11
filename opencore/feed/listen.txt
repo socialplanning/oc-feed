@@ -4,6 +4,12 @@ Create a stub context used for the listen adapters
     >>> from opencore.feed.tests import DummyContext
     >>> context = DummyContext()
 
+Register an IComponentLookup adapter on the dummy context
+    >>> from opencore.feed.tests import get_site_manager
+    >>> from zope.component import provideAdapter
+    >>> from zope.component.interfaces import IComponentLookup
+    >>> provideAdapter(get_site_manager, adapts=[DummyContext], provides=IComponentLookup)
+
 Create a fake search result utility
 to return a stub result
     >>> from Products.listen.interfaces import ISearchableArchive
