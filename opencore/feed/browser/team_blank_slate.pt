@@ -6,7 +6,7 @@
   </h2>
   <div class="oc-blankSlate"
        tal:condition="view/context/is_project_admin">
-    <img src="/++resource++img/touricons/team.gif" />
+    <img src="/++resource++img/summaryicons/team.gif" />
     <p>There are currently no members for this group.</p>
     <p><a tal:condition="view/context/is_project_admin"
         i18n:translate="team-manage_send_email_invite" href="invite">

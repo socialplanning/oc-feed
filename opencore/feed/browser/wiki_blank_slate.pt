@@ -3,7 +3,7 @@
     <a tal:attributes="href context/link">Pages</a>     
   </h2>	
   <div class="oc-blankSlate">
-    <img class="right" src="/++resource++img/touricons/wiki.gif" />
+    <img class="right" src="/++resource++img/summaryicons/wiki.gif" />
     <p>Collaborate on ideas using Pages</p>
     <p><a tal:attributes="href view/context/link">Home Page</a></p>
     <p><a tal:condition="view/context/is_project_admin"
