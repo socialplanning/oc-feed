@@ -5,15 +5,14 @@
     <a tal:attributes="href context/link">Team</a>
   </h2>
   <div class="oc-blankSlate"
-       tal:condition="view/context/is_project_admin">
+       tal:condition="view/context/context/isProjectAdmin">
     <img src="/++resource++img/summaryicons/team.gif" />
     <p>There are currently no members for this group.</p>
-    <p><a tal:condition="view/context/is_project_admin"
-        i18n:translate="team-manage_send_email_invite" href="invite">
+    <p><a i18n:translate="team-manage_send_email_invite" href="invite">        
         Send an email to invite people to join</a></p>
   </div>
   <div class="oc-widget oc-widget-feed clearAfter"
-       tal:condition="not:view/context/is_project_admin"
+       tal:condition="not:view/context/context/isProjectAdmin"
        tal:attributes="id string:oc-feed-${lowertitle}">
     <ul class="oc-feed-list clearAfter" tal:condition="context/items">
       <li class="oc-feed-item oc-clearAfter" tal:repeat="entry context/items"> 

@@ -24,21 +24,6 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
     title = 'Team'
 
-    def is_project_admin(self):
-        """
-        Boolean method for checking if the current user
-        is a team manager of the adapted project. It seems
-        we can't let the project itself reach the publisher(?)
-        because it's not acquisition-wrapped. i think this is
-        because the template isn't really bound to a proper view
-        though i'm not quite sure either how this implementation
-        works or whether this is really the cause of the problem.
-
-        (maybe we should set __of__ manually in initialization?)
-        """
-        # XXX this method is deprecated
-        return self.context.isProjectAdmin()
-
     @property
     def link(self):
         return '%s/team' % self.context.absolute_url()
