@@ -53,6 +53,7 @@ class ListsFeedAdapter(BaseFeedAdapter):
 
         MSG_BODY_LENGTH = 300
 
+        items = []
         messages = []
         mlists = self.mlists
         n_lists = len(mlists)
@@ -136,7 +137,8 @@ class ListsFeedAdapter(BaseFeedAdapter):
                                      context=context,
                                      byline=byline,
                                      responses=response)
-            yield feed_item
+            items.append(feed_item)
+        return items
 
 
 #XXX duplication between this class and lists class above
@@ -157,6 +159,7 @@ class MailingListFeedAdapter(BaseFeedAdapter):
 
         MSG_BODY_LENGTH = 300
 
+        items = []
         brains = []
         sa = getUtility(
             ISearchableArchive,
@@ -188,4 +191,5 @@ class MailingListFeedAdapter(BaseFeedAdapter):
                                      link,
                                      author,
                                      pubDate)
-            yield feed_item
+            items.append(feed_item)
+        return items

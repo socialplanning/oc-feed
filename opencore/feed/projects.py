@@ -17,6 +17,7 @@ class ProjectsFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=10):
+        items = []
         cat = getToolByName(self.context, 'portal_catalog')
         #XXX put in max depth 1 to not search subfolders
         for brain in cat(portal_type='OpenProject',
@@ -36,4 +37,5 @@ class ProjectsFeedAdapter(BaseFeedAdapter):
                                      link,
                                      author,
                                      pubDate)
-            yield feed_item
+            items.append(feed_item)
+        return items

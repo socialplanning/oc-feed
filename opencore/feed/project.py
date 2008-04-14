@@ -50,6 +50,7 @@ class WikiFeedAdapter(BaseFeedAdapter):
     @property
     def items(self, n_items=5):
         cat = getToolByName(self.context, 'portal_catalog')
+        items = []
         for brain in cat(portal_type='Document',
                          path='/'.join(self.context.getPhysicalPath()),
                          sort_on='modified',
@@ -76,4 +77,5 @@ class WikiFeedAdapter(BaseFeedAdapter):
                                      link,
                                      author,
                                      pubDate)
-            yield feed_item
+            items.append(feed_item)
+        return items

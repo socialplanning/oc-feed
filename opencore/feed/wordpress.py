@@ -33,6 +33,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=5):
+        items = []
 
         # without the trailing slash, one gets different results!
         # see http://trac.openplans.org/openplans/ticket/2197#comment:3
@@ -86,4 +87,5 @@ class WordpressFeedAdapter(BaseFeedAdapter):
                                      entry.date,
                                      responses=response)
 
-            yield feed_item
+            items.append(feed_item)
+        return items

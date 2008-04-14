@@ -17,6 +17,7 @@ class PageFeedAdapter(BaseFeedAdapter):
     @property
     def items(self):
         pr = getToolByName(self.context, 'portal_repository')
+        items = []
         for version in pr.getHistory(self.context, countPurged=False):
             description = version.comment
             page = version.object
@@ -31,4 +32,5 @@ class PageFeedAdapter(BaseFeedAdapter):
                                      link,
                                      author,
                                      pubDate)
-            yield feed_item
+            items.append(feed_item)
+        return items

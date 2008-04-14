@@ -47,6 +47,7 @@ class TeamFeedAdapter(BaseFeedAdapter):
     @property
     def items(self, n_items=12):
         
+        items = []
         members = list(self.context.projectMembers())
         project = self.context
 
@@ -69,4 +70,5 @@ class TeamFeedAdapter(BaseFeedAdapter):
                                      member.id,
                                      member.Date())
 
-            yield feed_item
+            items.append(feed_item)
+        return items
