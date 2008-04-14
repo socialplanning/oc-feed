@@ -51,13 +51,6 @@
      permission="zope2.View"
      />
 
-  <browser:page
-     for="opencore.interfaces.IProject"
-     name="foobar"
-     class=".foobar.Foobar"
-     permission="zope2.View"
-     />
-
   <!-- adapters for blank slates -->
   <!-- XXX NEEDED? -->
 
