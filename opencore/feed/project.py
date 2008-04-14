@@ -1,4 +1,4 @@
-\from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByName
 from opencore.configuration import DEFAULT_ROLES
 from opencore.interfaces.adding import IAddProject
 from opencore.interfaces import IProject
