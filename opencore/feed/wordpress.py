@@ -59,7 +59,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
             title = feed.feed.title
         except AttributeError:
             # this means the uri is not a feed (or something?)
-            return
+            return []
 
         # maybe this should be done after comments?
         # feed.entries.sort(key=date_key) # they appeared sorted already?
@@ -88,4 +88,5 @@ class WordpressFeedAdapter(BaseFeedAdapter):
                                      responses=response)
 
             items.append(feed_item)
+        import pdb;  pdb.set_trace()
         return items
