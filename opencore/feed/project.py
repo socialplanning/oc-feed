@@ -76,6 +76,7 @@ class WikiFeedAdapter(BaseFeedAdapter):
                                      description,
                                      link,
                                      author,
-                                     pubDate)
+                                     pubDate,
+                                     byline='editted by')
             items.append(feed_item)
         return items
