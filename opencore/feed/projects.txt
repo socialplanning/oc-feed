@@ -31,8 +31,7 @@ Instantiate the projects feed adapter with the dummy context
     >>> projects_adapter = ProjectsFeedAdapter(context)
 
 Test the items method
-    >>> items = projects_adapter.items
-    >>> lst = list(items)
+    >>> lst = projects_adapter.items
     >>> len(lst)
     1
     >>> feed_item = lst[0]

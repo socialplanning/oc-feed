@@ -30,8 +30,7 @@ Instantiate the people feed adapter with the dummy context
     >>> people_adapter = PeopleFeedAdapter(context)
 
 Test the items method
-    >>> items = people_adapter.items
-    >>> lst = list(items)
+    >>> lst = people_adapter.items
     >>> len(lst)
     1
     >>> feed_item = lst[0]

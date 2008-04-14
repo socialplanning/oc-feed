@@ -80,8 +80,7 @@ Instantiate the lists feed adapter with the dummy context
 
 # TODO: stub out these so that the tests pass 
 #Test the items method
-#    >>> items = lists_adapter.items
-#    >>> lst = list(items)
+#    >>> lst = lists_adapter.items
 #    >>> len(lst)
 #    2
 #    >>> feed_item1, feed_item2 = lst

@@ -37,8 +37,7 @@ Instantiate the page feed adapter with the dummy context
     >>> page_adapter = PageFeedAdapter(context)
 
 Test the items method
-    >>> items = page_adapter.items
-    >>> lst = list(items)
+    >>> lst = page_adapter.items
     >>> len(lst)
     1
     >>> feed_item = lst[0]
