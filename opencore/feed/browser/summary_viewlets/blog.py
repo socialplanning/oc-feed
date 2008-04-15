@@ -15,8 +15,9 @@ class BlogSummaryViewlet(BlankSlateViewlet):
     sort_order = 100
 
     def is_blank(self):
-        return (not list(self.context.items) and
-                self.context.context.isProjectMember())
+        no_content = not list(self.context.items)
+        can_add_content = self.context.context.isProjectMember()
+        return (no_content and can_add_content)
 
     def home(self, id):
         """return author home (profile) absolute url"""

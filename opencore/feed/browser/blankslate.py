@@ -29,19 +29,6 @@ class ListsFeedBlankSlate(ListsFeedAdapter):
             self.create = os.path.join(self.context.absolute_url(), 'create')
         return True
 
-class WikiFeedBlankSlate(WikiFeedAdapter):
-    implements(IFeedBlankSlate)
-    blankslate = 'wiki_blank_slate.pt'
-    @property
-    def is_blank(self):
-        cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat(portal_type='Document',
-                     path='/'.join(self.context.getPhysicalPath()))
-        if len(brains) > 1:
-            return False
-        histories = brains[0].getObject().getHistories()
-        return len(list(histories)) < 2
-    
 class BlankSlateTeamFeedView(FeedView):
     
     blankslate = 'team_blank_slate.pt'

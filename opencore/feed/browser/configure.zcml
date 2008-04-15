@@ -52,12 +52,6 @@
       factory=".blankslate.ListsFeedBlankSlate"
       />
 
-   <adapter
-      for="opencore.interfaces.IProject"
-      provides="opencore.feed.interfaces.IFeedBlankSlate"
-      factory=".blankslate.WikiFeedBlankSlate"
-      />
-
    <include package=".summary_viewlets" />
 
 </configure>
