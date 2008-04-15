@@ -5,29 +5,13 @@ from opencore.feed.interfaces import ITeamFeedData
 from opencore.feed.interfaces import IFeedBlankSlate
 from opencore.feed.listen import ListsFeedAdapter
 from opencore.feed.project import WikiFeedAdapter
-from opencore.feed.wordpress import WordpressFeedAdapter
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from Products.listen.interfaces import ISearchableArchive
-from zope.component import getAdapter
-from zope.component import getUtility
 from zope.interface import implements
 
 class ListsFeedBlankSlate(ListsFeedAdapter):
     implements(IFeedBlankSlate)
     blankslate = 'lists_blank_slate.pt'
-    @property
-    def is_blank(self):
-        for ml_id in self.mlists:
-            mlist = self.context._getOb(ml_id)
-            archive = getUtility(ISearchableArchive, context=mlist)
-            if archive.getToplevelMessages():
-                return False
-        if self.mlists:
-            self.create = os.path.join(self.context.absolute_url(), self.mlists[0], 'archive', 'new_topic')
-        else:
-            self.create = os.path.join(self.context.absolute_url(), 'create')
-        return True
 
 class BlankSlateTeamFeedView(FeedView):
     

@@ -6,7 +6,7 @@
     <img src="/++resource++img/summaryicons/mailinglist.gif" />
     <p>There aren't any discussions for this project yet.</p>
     <p tal:condition="view/context/is_project_member">
-      <a tal:attributes="href string:${view/context/create}">
+      <a tal:attributes="href string:${view/create}">
         Start a Discussion</a></p>
   </div>
 </div>
