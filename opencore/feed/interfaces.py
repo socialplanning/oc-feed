@@ -33,9 +33,6 @@ class IFeedData(Interface):
     items = Iterable(title=u'Feed items',
                      description=u'Items the feed is providing')
 
-class IBlogFeedData(IFeedData):
-    """marker interface so that projects can have multiple feeds"""
-
 class ITeamFeedData(IFeedData):
     """marker interface so that projects can have multiple feeds"""
 

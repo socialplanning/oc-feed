@@ -37,14 +37,6 @@
   <!-- views for blank slates -->
   <browser:page
      for="opencore.interfaces.IProject"
-     name="blogfeed"
-     class=".blankslate.BlankSlateBlogFeedView"
-     template="portrait_feed_snippet.pt"
-     permission="zope2.View"
-     />
-
-  <browser:page
-     for="opencore.interfaces.IProject"
      name="teamfeed"
      class=".blankslate.BlankSlateTeamFeedView"
      template="team_feed_snippet.pt"

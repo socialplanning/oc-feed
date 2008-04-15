@@ -41,8 +41,9 @@
 
   <adapter
      for="opencore.interfaces.IProject"
-     provides="opencore.feed.interfaces.IBlogFeedData"
+     provides="opencore.feed.interfaces.IFeedData"
      factory=".wordpress.WordpressFeedAdapter"
+     name="blog"
      />
 
   <adapter
