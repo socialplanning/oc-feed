@@ -88,5 +88,4 @@ class WordpressFeedAdapter(BaseFeedAdapter):
                                      responses=response)
 
             items.append(feed_item)
-        import pdb;  pdb.set_trace()
         return items
