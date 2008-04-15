@@ -3,9 +3,6 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from opencore.browser.blankslate import BlankSlateViewlet
 from opencore.member.utils import portrait_thumb_path
 from opencore.member.utils import profile_path
-from topp.utils.pretty_date import prettyDate
-from zope.formlib.namedtemplate import NamedTemplate
-from zope.component import getAdapter
 import opencore.feed.browser
 import os
 
@@ -20,10 +17,6 @@ class BlogSummaryViewlet(BlankSlateViewlet):
     def is_blank(self):
         return (not list(self.context.items) and
                 self.context.context.isProjectMember())
-
-    def pretty_date(self, date):
-        # XXX this is copy/pasted
-        return prettyDate(date)
 
     def home(self, id):
         """return author home (profile) absolute url"""
