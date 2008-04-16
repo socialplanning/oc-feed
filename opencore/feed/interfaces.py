@@ -53,6 +53,8 @@ class IFeedItem(Interface):
                  description=u'Link to the feed item')
     description = Text(title=u'Feed item description',
                        description=u'Description of the feed item')
+    author = TextLine(title=u'Feed item author',
+                      description=u'Author who created or modified the feed')
     pubDate = Datetime(title=u'Feed item date',
                        description=u'Date updated for the feed item')
     body = Text(title=u'Feed item body',
