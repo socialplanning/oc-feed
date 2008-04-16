@@ -1,17 +1,6 @@
-import os
-
 from opencore.feed.browser.view import FeedView
 from opencore.feed.interfaces import ITeamFeedData
-from opencore.feed.interfaces import IFeedBlankSlate
-from opencore.feed.listen import ListsFeedAdapter
-from opencore.feed.project import WikiFeedAdapter
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from zope.interface import implements
-
-class ListsFeedBlankSlate(ListsFeedAdapter):
-    implements(IFeedBlankSlate)
-    blankslate = 'lists_blank_slate.pt'
 
 class BlankSlateTeamFeedView(FeedView):
     

@@ -26,4 +26,16 @@
      permission="zope2.View"
      />
 
+<!-- views for blank slates --> 
+<!-- deprecated; move this out -->
+	 	  <browser:page 
+	 	     for="opencore.interfaces.IProject" 
+	 	     name="teamfeed" 
+	 	     class=".blankslate.BlankSlateTeamFeedView" 
+	 	     template="team_feed_snippet.pt" 
+	 	     permission="zope2.View" 
+	 	     /> 
+
+   <include package=".summary_viewlets" /> 
+
 </configure>
