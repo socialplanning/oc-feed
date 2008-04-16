@@ -15,7 +15,7 @@ class BlogSummaryViewlet(BlankSlateViewlet):
     sort_order = 100
 
     def is_blank(self):
-        no_content = not list(self.context.items)
+        no_content = not self.context.items
         can_add_content = self.context.context.isProjectMember()
         return (no_content and can_add_content)
 
