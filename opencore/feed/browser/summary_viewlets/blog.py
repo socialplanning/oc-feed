@@ -19,12 +19,6 @@ class BlogSummaryViewlet(BlankSlateViewlet):
         can_add_content = self.context.context.isProjectMember()
         return (no_content and can_add_content)
 
-    # XXX this method should be deprecated
-    def home(self, id):
-        """return author home (profile) absolute url"""
-        return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
-                          profile_path(id))
-
     # XXX this method should be absorbed into the feed,
     # as feed items should have an icon 
     # (in this case, the author portrait thumb)

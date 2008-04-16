@@ -31,8 +31,12 @@ class WikiFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=5):
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
+
         cat = getToolByName(self.context, 'portal_catalog')
-        items = []
         for brain in cat(portal_type='Document',
                          path='/'.join(self.context.getPhysicalPath()),
                          sort_on='modified',
@@ -53,12 +57,10 @@ class WikiFeedAdapter(BaseFeedAdapter):
             # let's just leave it off for now
             #body = brain.getObject().getText()
 
-            feed_item = createObject('opencore.feed.feeditem',
-                                     title,
-                                     description,
-                                     link,
-                                     author,
-                                     pubDate,
-                                     byline='editted by')
-            items.append(feed_item)
-        return items
+            self.add_item(title=title,
+                          description=description,
+                          link=link,
+                          author=author,
+                          pubDate=pubDate,
+                          byline='edited by')
+        return self._items

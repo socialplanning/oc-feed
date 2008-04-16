@@ -33,7 +33,10 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=5):
-        items = []
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
 
         # without the trailing slash, one gets different results!
         # see http://trac.openplans.org/openplans/ticket/2197#comment:3
@@ -79,13 +82,11 @@ class WordpressFeedAdapter(BaseFeedAdapter):
             if not title.strip():
                 title = entry.summary
 
-            feed_item = createObject('opencore.feed.feeditem',
-                                     title,
-                                     entry.summary,
-                                     entry.link,
-                                     entry.author,
-                                     entry.date,
-                                     responses=response)
+            self.add_item(title=title,
+                          description=entry.summary,
+                          link=entry.link,
+                          author=entry.author,
+                          pubDate=entry.date,
+                          responses=response)
 
-            items.append(feed_item)
-        return items
+        return self._items

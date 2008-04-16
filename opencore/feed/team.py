@@ -31,8 +31,11 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=12):
-        
-        items = []
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
+
         members = list(self.context.projectMembers())
         project = self.context
 
@@ -48,12 +51,10 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
         for member in members:
             link = profile_path(member.id)
-            feed_item = createObject('opencore.feed.feeditem',
-                                     member.id,
-                                     member.fullname,
-                                     link,
-                                     member.id,
-                                     member.Date())
+            self.add_item(title=member.id,
+                          description=member.fullname,
+                          link=link,
+                          author=member.id,
+                          pubDate=member.Date())
 
-            items.append(feed_item)
-        return items
+        return self._items

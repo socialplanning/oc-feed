@@ -16,8 +16,13 @@ class PageFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self):
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
+
         pr = getToolByName(self.context, 'portal_repository')
-        items = []
+        self._items = []
         for version in pr.getHistory(self.context, countPurged=False):
             description = version.comment
             page = version.object
@@ -25,12 +30,10 @@ class PageFeedAdapter(BaseFeedAdapter):
             link = page.absolute_url()
             pubDate = page.modified()
             author = version.sys_metadata.get('principal')
-            #body = page.getText()
-            feed_item = createObject('opencore.feed.feeditem',
-                                     title,
-                                     description,
-                                     link,
-                                     author,
-                                     pubDate)
-            items.append(feed_item)
-        return items
+
+            self.add_item(title=title,
+                          description=description,
+                          link=link,
+                          author=author,
+                          pubDate=pubDate)
+        return self._items

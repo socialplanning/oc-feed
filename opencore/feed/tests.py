@@ -1,5 +1,8 @@
+from opencore.feed.base import BaseFeedAdapter
 import doctest
 import unittest
+
+BaseFeedAdapter.memberURL = lambda x, y: 'http://www.openplans.org'
 
 class DummyContext(object):
     def Title(self):

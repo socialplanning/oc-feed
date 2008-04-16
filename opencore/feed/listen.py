@@ -51,6 +51,11 @@ class ListsFeedAdapter(BaseFeedAdapter):
            in which case we would be able to search for messages
            in the site wide search"""
 
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
+
         MSG_BODY_LENGTH = 300
 
         items = []
@@ -128,17 +133,15 @@ class ListsFeedAdapter(BaseFeedAdapter):
                 response = None
                 byline = 'by'
 
-            feed_item = createObject('opencore.feed.feeditem',
-                                     title,
-                                     description,
-                                     link,
-                                     author,
-                                     pubDate,
-                                     context=context,
-                                     byline=byline,
-                                     responses=response)
-            items.append(feed_item)
-        return items
+            self.add_item(title=title,
+                          description=description,
+                          link=link,
+                          author=author,
+                          pubDate=pubDate,
+                          context=context,
+                          byline=byline,
+                          responses=response)
+        return self._items
 
 
 #XXX duplication between this class and lists class above

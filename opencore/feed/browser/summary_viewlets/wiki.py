@@ -23,8 +23,3 @@ class WikiSummaryViewlet(BlankSlateViewlet):
             return False
         histories = brains[0].getObject().getHistories()
         return len(list(histories)) < 2
-
-    def home(self, id):
-        """return author home (profile) absolute url"""
-        return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
-                          profile_path(id))

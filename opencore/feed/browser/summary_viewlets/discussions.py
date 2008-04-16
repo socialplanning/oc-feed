@@ -30,3 +30,4 @@ class DiscussionsSummaryViewlet(BlankSlateViewlet):
 
     def adapt(self):
         return getAdapter(self.context.lists, IFeedData)
+
