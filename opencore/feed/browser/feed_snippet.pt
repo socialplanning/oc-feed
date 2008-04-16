@@ -41,7 +41,7 @@
           by
           </span>
 
-          <a tal:define="author_home python:view.home(entry.author)"
+          <a tal:define="author_home entry/authorURL | nothing"
 	     tal:omit-tag="not:author_home"
 	     tal:attributes="href author_home"
              tal:content="entry/author">author</a>,
