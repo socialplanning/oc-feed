@@ -16,11 +16,4 @@
      permission="zope2.View"
      />
 
-  <browser:viewlet
-     manager="opencore.project.browser.interfaces.ISummaryFeeds"
-     class=".discussions.DiscussionsSummaryViewlet"
-     name="discussions"
-     permission="zope2.View"
-     />
-
 </configure>
