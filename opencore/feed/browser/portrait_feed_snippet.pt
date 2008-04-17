@@ -60,5 +60,8 @@
         </div>
       </div>
     </li>
+    <li tal:condition="context/items">
+	  See all <a tal:attributes="href context/link" tal:content="lowertitle">items</a>
+	  </li>
   </ul>
 </div>
