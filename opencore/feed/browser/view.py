@@ -1,10 +1,8 @@
-from opencore.feed.interfaces import IFeedBlankSlate
 from opencore.feed.interfaces import IFeedData
 from opencore.member.utils import portrait_thumb_path
 from opencore.member.utils import profile_path
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from topp.utils.pretty_date import prettyDate
 
 
