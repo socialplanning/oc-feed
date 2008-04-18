@@ -5,15 +5,13 @@ from Products.CMFCore.utils import getToolByName
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
-from opencore.feed.interfaces import IFeedItem
 from opencore.interfaces import IProject
 from zope.component import adapts
-from zope.component import createObject
 from zope.interface import implements
 
 class WordpressFeedAdapter(BaseFeedAdapter):
     """feed for recent wordpress blogs"""
-    # XXX this should not be used if the project has no blog
+    # this should not be used if the project has no blog
 
     implements(IFeedData)
     adapts(IProject)
