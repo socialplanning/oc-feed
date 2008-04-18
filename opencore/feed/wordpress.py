@@ -17,6 +17,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
     adapts(IProject)
 
     title = 'Blog'
+    itemstitle = 'blog posts'
 
     def is_project_member(self):
         project = self.context

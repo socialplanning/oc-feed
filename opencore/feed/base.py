@@ -20,6 +20,10 @@ class BaseFeedAdapter(object):
         return '%s Opencore Feed' % self.context.Title()
 
     @property
+    def itemstitle(self):
+        return self.title.lower()
+
+    @property
     def description(self):
         return 'Opencore Feed for %s: %s' % (self.context.Title(),
                                              self.context.Description())
@@ -69,6 +73,15 @@ class BaseFeedAdapter(object):
         """
         return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
                           portrait_thumb_path(id))
+
+class AggreateFeedAdapter(BaseFeedAdapter):
+    """
+    aggregates feeds from several sources and puts them together sorted by date
+    """
+
+    def subfeeds(self):
+        """subclasses should implement this method to define their subfeeds"""
+        return []
 
 class FeedItem(object):
     implements(IFeedItem)
