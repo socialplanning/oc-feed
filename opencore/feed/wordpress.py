@@ -19,13 +19,6 @@ class WordpressFeedAdapter(BaseFeedAdapter):
     title = 'Blog'
     itemstitle = 'blog posts'
 
-    def is_project_member(self):
-        project = self.context
-        membertool = getToolByName(project, 'portal_membership')
-        mem_id = membertool.getAuthenticatedMember().getId()
-        team_ids = project.getTeams()[0].getActiveMemberIds()
-        return mem_id in team_ids
-
     @property
     def link(self):
         return '%s/blog' % self.context.absolute_url()
