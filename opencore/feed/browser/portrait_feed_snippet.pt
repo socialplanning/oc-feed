@@ -17,7 +17,8 @@
         tal:repeat="entry context/items">
       
       <div tal:define="author entry/author | nothing">
-	<img tal:attributes="src python:view.portrait(author)" />
+	<img tal:condition="entry/logo | nothing"
+	     tal:attributes="src entry/logo" />
 	<h3 class="oc-feed-item-title">
           <a tal:attributes="href entry/link"
 	     tal:content="entry/title" />    

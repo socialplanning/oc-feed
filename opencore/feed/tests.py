@@ -3,6 +3,7 @@ import doctest
 import unittest
 
 BaseFeedAdapter.memberURL = lambda x, y: 'http://www.openplans.org'
+BaseFeedAdapter.member_portraitURL = lambda x, y: 'http://www.openplans.org/++resource++img/topp_logo.jpg'
 
 class DummyContext(object):
     def Title(self):

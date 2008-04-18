@@ -22,10 +22,6 @@ class FeedView(BrowserView):
         """return author home (profile) absolute url"""
         return '%s/%s' % (self.site_url, profile_path(id))
 
-    def portrait(self, id):
-        """return author portrait thumb absolute url"""
-        return '%s/%s' % (self.site_url, portrait_thumb_path(id))
-
     @property
     def site_url(self):
         portal = getToolByName(self.context.context, 

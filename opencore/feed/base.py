@@ -1,5 +1,6 @@
 from opencore.feed.interfaces import IFeedItem
 from opencore.member.utils import profile_path
+from opencore.member.utils import portrait_thumb_path
 from zope.component import createObject
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
@@ -48,6 +49,9 @@ class BaseFeedAdapter(object):
         if not 'authorURL' in kw or not kw['authorURL']:
             kw['authorURL'] = self.memberURL(kw['author'])
 
+        if not 'logo' in kw or not kw['logo']:
+            kw['logo'] = self.member_portraitURL(kw['author'])
+
         if not hasattr(self,'_items'):
             self._items = []
 
@@ -59,11 +63,17 @@ class BaseFeedAdapter(object):
         return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
                           profile_path(id))
 
+    def member_portraitURL(self, id):
+        """
+        utility method that provides a URL to a member's portrait thumbnail
+        """
+        return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
+                          portrait_thumb_path(id))
 
 class FeedItem(object):
     implements(IFeedItem)
 
-    def __init__(self, title, description, link, author, pubDate, body=None, context=None, byline=None, responses=None, authorURL=None):
+    def __init__(self, title, description, link, author, pubDate, body=None, context=None, byline=None, responses=None, authorURL=None, logo=None):
         """
         * context: dictionary containing { 'title':, 'link': of the appropriate context
         * replies: should be FeedItemReplies instance
@@ -74,6 +84,8 @@ class FeedItem(object):
         self.link = link
         self.author = author
         self.authorURL = authorURL
+        if logo:
+            self.logo = logo
         self.pubDate = pubDate
         if body is None:
             self.body = u''

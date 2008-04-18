@@ -11,17 +11,20 @@
     <p><a i18n:translate="team-manage_send_email_invite" href="invite">        
         Send an email to invite people to join</a></p>
   </div>
+
+<!--- XXX this repeats the same data as the team_feed_snippet!
+    what should be in place is a better is_blank condition check -->
   <div class="oc-widget oc-widget-feed clearAfter"
        tal:condition="not:view/context/context/isProjectAdmin"
        tal:attributes="id string:oc-feed-${lowertitle}">
     <ul class="oc-feed-list clearAfter" tal:condition="context/items">
       <li class="oc-feed-item oc-clearAfter" tal:repeat="entry context/items"> 
         <p tal:define="author entry/author | nothing">
-	      <a tal:define="author_home python:view.home(author)" 
+	      <a tal:define="author_home entry/authorURL" 
 		    tal:omit-tag="not:author" 
-		    tal:attributes="href author_home"><img tal:attributes="src python:view.portrait(author)" /></a>
+		    tal:attributes="href author_home"><img tal:attributes="src entry/logo" /></a>
           <span class="oc-feed-item-data oc-discreetText">
-	        <a tal:define="author_home python:view.home(author)" 
+	        <a tal:define="author_home entry/authorURL" 
 		     tal:omit-tag="not:author"
 	       tal:attributes="href author_home"
 	       tal:content="author">author</a>

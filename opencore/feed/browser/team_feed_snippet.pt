@@ -9,7 +9,8 @@
       <p tal:define="author entry/author | nothing">
 	      <a tal:define="author_home python:view.home(author)" 
 		    tal:omit-tag="not:author" 
-		    tal:attributes="href author_home"><img tal:attributes="src python:view.portrait(author)" /></a>
+		    tal:attributes="href
+		    author_home"><img tal:attributes="src entry/logo" /></a>
         <span class="oc-feed-item-data oc-discreetText">
 	        <a tal:define="author_home python:view.home(author)" 
 		     tal:omit-tag="not:author"
