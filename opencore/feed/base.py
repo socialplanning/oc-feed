@@ -64,14 +64,14 @@ class BaseFeedAdapter(object):
     def memberURL(self, id):
         """Utility method that uses the current context to convert a member id
         into a URL"""
-        return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
+        return '%s/%s' % (getToolByName(self.context, 'portal_url')(),
                           profile_path(id))
 
     def member_portraitURL(self, id):
         """
         utility method that provides a URL to a member's portrait thumbnail
         """
-        return '%s/%s' % (getToolByName(self.context.context, 'portal_url')(),
+        return '%s/%s' % (getToolByName(self.context, 'portal_url')(),
                           portrait_thumb_path(id))
 
 class AggreateFeedAdapter(BaseFeedAdapter):

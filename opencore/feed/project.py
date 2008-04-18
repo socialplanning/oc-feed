@@ -6,12 +6,7 @@ from zope.component import adapts
 from zope.interface import implements
 
 class WikiFeedAdapter(BaseFeedAdapter):
-    """feed for wiki page modifications in project
-       XXX or should this be only for new pages?
-       probably want this to be across all changes within the project
-       including all featurelets
-       maybe then we iterate through the feed across all featurelets,
-       parse them, and aggregate with latest pages"""
+    """feed for wiki page modifications in project"""
     
     implements(IFeedData)
     adapts(IProject)
@@ -32,12 +27,12 @@ class WikiFeedAdapter(BaseFeedAdapter):
             return self._items
 
         cat = getToolByName(self.context, 'portal_catalog')
-        for brain in cat(portal_type='Document',
-                         path='/'.join(self.context.getPhysicalPath()),
-                         sort_on='modified',
-                         sort_order='descending',
-                         sort_limit=n_items):
-
+        brains = cat(portal_type='Document',
+                     path='/'.join(self.context.getPhysicalPath()),
+                     sort_on='modified',
+                     sort_order='descending',
+                     sort_limit=n_items)
+        for brain in brains:
             title = brain.Title
             #XXX would be nice if the description was the revision note
             #we should index it that way
