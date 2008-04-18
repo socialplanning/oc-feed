@@ -9,9 +9,6 @@ from zope.schema import TextLine
 class ICanFeed(Interface):
     """Marker interface to mean that component can create feeds"""
 
-class IHasBlogFeed(Interface):
-    """Marker interface to mean that component has feeds"""
-
 class IHasTeamFeed(Interface):
     """Marker interface to mean that component has feeds"""
 
