@@ -1,5 +1,5 @@
 <!-- project member blank slate -->
-<div tal:condition="view/context/is_project_member"
+<div tal:condition="view/context/context/isProjectMember"
      id="oc-feed-blog" class="oc-widget oc-widget-feed oc-column">
   <h2 class="oc-feed-title">
     <a tal:attributes="href context/link">Blog</a>     
@@ -12,7 +12,7 @@
 </div>
 
 <!-- non-project member blank slate -->
-<div tal:condition="not:view/context/is_project_member"
+<div tal:condition="not:view/context/context/isProjectMember"
      id="oc-feed-blog" class="oc-widget oc-widget-feed oc-column">
   <h2 class="oc-feed-title">
     <a tal:attributes="href context/link">Blog</a>     
