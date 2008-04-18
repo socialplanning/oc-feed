@@ -1,3 +1,4 @@
+<!-- project member blank slate -->
 <div tal:condition="view/context/is_project_member"
      id="oc-feed-blog" class="oc-widget oc-widget-feed oc-column">
   <h2 class="oc-feed-title">
@@ -8,4 +9,13 @@
     <p>Voice your ideas through a Project Blog!</p>
     <p><a tal:attributes="href string:${view/context/link}/wp-admin/post-new.php">Write a Post</a></p>
   </div>
+</div>
+
+<!-- non-project member blank slate -->
+<div tal:condition="not:view/context/is_project_member"
+     id="oc-feed-blog" class="oc-widget oc-widget-feed oc-column">
+  <h2 class="oc-feed-title">
+    <a tal:attributes="href context/link">Blog</a>     
+  </h2>
+  Publish your thoughts through the blog
 </div>
