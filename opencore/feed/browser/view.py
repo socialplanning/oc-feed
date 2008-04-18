@@ -34,10 +34,3 @@ class FeedView(BrowserView):
                                'portal_url')
         return portal()
 
-class BlankSlateFeedView(FeedView):
-
-    def __init__(self, context, request):
-        adapted = IFeedBlankSlate(context)
-        super(FeedView, self).__init__(adapted, request)
-        if self.context.is_blank:
-            self.index = ZopeTwoPageTemplateFile(self.context.blankslate)
