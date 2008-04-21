@@ -31,7 +31,7 @@
 	 	  <browser:page 
 	 	     for="opencore.interfaces.IProject" 
 	 	     name="teamfeed" 
-	 	     class=".blankslate.BlankSlateTeamFeedView" 
+	 	     class=".team_feed.BlankSlateTeamFeedView" 
 	 	     template="team_feed_snippet.pt" 
 	 	     permission="zope2.View" 
 	 	     /> 
