@@ -74,15 +74,6 @@ class BaseFeedAdapter(object):
         return '%s/%s' % (getToolByName(self.context, 'portal_url')(),
                           portrait_thumb_path(id))
 
-class AggreateFeedAdapter(BaseFeedAdapter):
-    """
-    aggregates feeds from several sources and puts them together sorted by date
-    """
-
-    def subfeeds(self):
-        """subclasses should implement this method to define their subfeeds"""
-        return []
-
 class FeedItem(object):
     implements(IFeedItem)
 
