@@ -18,6 +18,8 @@
      name="opencore.feed.feeditem"
      />
 
+  <!-- feeds for a project -->
+
   <adapter
      for="opencore.interfaces.IProject"
      provides="opencore.feed.interfaces.IFeedData"
@@ -33,9 +35,12 @@
 
   <adapter
      for="opencore.interfaces.IProject"
-     provides="opencore.feed.interfaces.ITeamFeedData"
+     provides="opencore.feed.interfaces.IFeedData"
      factory=".team.TeamFeedAdapter"
+     name="team"
      />
+
+  <!-- other feeds -->
 
   <adapter
      for="opencore.interfaces.adding.IAddProject"
