@@ -5,27 +5,19 @@ from Products.CMFCore.utils import getToolByName
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
-from opencore.feed.interfaces import IFeedItem
 from opencore.interfaces import IProject
 from zope.component import adapts
-from zope.component import createObject
 from zope.interface import implements
 
 class WordpressFeedAdapter(BaseFeedAdapter):
     """feed for recent wordpress blogs"""
-    # XXX this should not be used if the project has no blog
+    # this should not be used if the project has no blog
 
     implements(IFeedData)
     adapts(IProject)
 
     title = 'Blog'
-
-    def is_project_member(self):
-        project = self.context
-        membertool = getToolByName(project, 'portal_membership')
-        mem_id = membertool.getAuthenticatedMember().getId()
-        team_ids = project.getTeams()[0].getActiveMemberIds()
-        return mem_id in team_ids
+    itemstitle = 'blog posts'
 
     @property
     def link(self):
@@ -33,6 +25,10 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=5):
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
 
         # without the trailing slash, one gets different results!
         # see http://trac.openplans.org/openplans/ticket/2197#comment:3
@@ -40,7 +36,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
         # pull down the feed with the proper cookie
         req = urllib2.Request(uri)
-        cookie = self.context.request.get_header('Cookie')
+        cookie = self.context.REQUEST.get_header('Cookie')
         if cookie:
             req.add_header('Cookie', cookie)
         try:
@@ -58,7 +54,7 @@ class WordpressFeedAdapter(BaseFeedAdapter):
             title = feed.feed.title
         except AttributeError:
             # this means the uri is not a feed (or something?)
-            return
+            return []
 
         # maybe this should be done after comments?
         # feed.entries.sort(key=date_key) # they appeared sorted already?
@@ -78,12 +74,11 @@ class WordpressFeedAdapter(BaseFeedAdapter):
             if not title.strip():
                 title = entry.summary
 
-            feed_item = createObject('opencore.feed.feeditem',
-                                     title,
-                                     entry.summary,
-                                     entry.link,
-                                     entry.author,
-                                     entry.date,
-                                     responses=response)
+            self.add_item(title=title,
+                          description=entry.summary,
+                          link=entry.link,
+                          author=entry.author,
+                          pubDate=entry.date,
+                          responses=response)
 
-            yield feed_item
+        return self._items

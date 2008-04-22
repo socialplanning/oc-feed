@@ -14,6 +14,11 @@ class PeopleFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self):
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
+
         cat = getToolByName(self.context, 'portal_catalog')
         #XXX put in max depth 1 to not search subfolders
         for brain in cat(portal_type='OpenMember',
@@ -36,10 +41,9 @@ class PeopleFeedAdapter(BaseFeedAdapter):
             pubDate = brain.created
             author = title
 
-            feed_item = createObject('opencore.feed.feeditem',
-                                     title,
-                                     description,
-                                     link,
-                                     author,
-                                     pubDate)
-            yield feed_item
+            self.add_item(title=title,
+                          description=description,
+                          link=link,
+                          author=author,
+                          pubDate=pubDate)
+        return self._items

@@ -9,12 +9,6 @@ from zope.schema import TextLine
 class ICanFeed(Interface):
     """Marker interface to mean that component can create feeds"""
 
-class IHasBlogFeed(Interface):
-    """Marker interface to mean that component has feeds"""
-
-class IHasTeamFeed(Interface):
-    """Marker interface to mean that component has feeds"""
-
 class IFeedData(Interface):
     """interface to expose necessary data for feed creation"""
 
@@ -33,11 +27,6 @@ class IFeedData(Interface):
     items = Iterable(title=u'Feed items',
                      description=u'Items the feed is providing')
 
-class IBlogFeedData(IFeedData):
-    """marker interface so that projects can have multiple feeds"""
-
-class ITeamFeedData(IFeedData):
-    """marker interface so that projects can have multiple feeds"""
 
 class IFeedBlankSlate(IFeedData):
     """interface for feeds with a blank-slate template"""
@@ -56,6 +45,8 @@ class IFeedItem(Interface):
                  description=u'Link to the feed item')
     description = Text(title=u'Feed item description',
                        description=u'Description of the feed item')
+    author = TextLine(title=u'Feed item author',
+                      description=u'Author who created or modified the feed')
     pubDate = Datetime(title=u'Feed item date',
                        description=u'Date updated for the feed item')
     body = Text(title=u'Feed item body',

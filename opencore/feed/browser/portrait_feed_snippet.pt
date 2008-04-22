@@ -1,5 +1,5 @@
 <div class="oc-widget oc-widget-feed oc-column"
-     tal:define="lowertitle python:context.title.lower()"
+     tal:define="lowertitle context/title/lower"
      tal:attributes="id string:oc-feed-${lowertitle}">
   <h2 class="oc-feed-title">
     <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a>     
@@ -7,7 +7,7 @@
   <div tal:condition="not: context/items">
     <p>
        There are currently no 
-       <span tal:replace="lowertitle">items</span>
+       <span tal:replace="context/itemstitle | default">items</span>
     </p>
 
   </div>
@@ -17,7 +17,8 @@
         tal:repeat="entry context/items">
       
       <div tal:define="author entry/author | nothing">
-	<img tal:attributes="src python:view.portrait(author)" />
+	<img tal:condition="entry/logo | nothing"
+	     tal:attributes="src entry/logo" />
 	<h3 class="oc-feed-item-title">
           <a tal:attributes="href entry/link"
 	     tal:content="entry/title" />    
@@ -42,7 +43,7 @@
 	      by
             </span>
 	       
-            <a tal:define="author_home python:view.home(author)"
+            <a tal:define="author_home entry/authorURL | nothing"
 	       tal:omit-tag="not:author_home"
 	       tal:attributes="href author_home"
 	       tal:content="author">author</a>,
@@ -60,5 +61,9 @@
         </div>
       </div>
     </li>
+    <li tal:condition="context/items">
+	  See all <a tal:attributes="href context/link" 
+		     tal:content="context/itemstitle | default">items</a>
+	  </li>
   </ul>
 </div>

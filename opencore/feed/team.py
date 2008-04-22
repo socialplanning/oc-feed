@@ -24,21 +24,6 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
     title = 'Team'
 
-    def is_project_admin(self):
-        """
-        Boolean method for checking if the current user
-        is a team manager of the adapted project. It seems
-        we can't let the project itself reach the publisher(?)
-        because it's not acquisition-wrapped. i think this is
-        because the template isn't really bound to a proper view
-        though i'm not quite sure either how this implementation
-        works or whether this is really the cause of the problem.
-
-        (maybe we should set __of__ manually in initialization?)
-        """
-        # XXX this method is deprecated
-        return self.context.isProjectAdmin()
-
     @property
     def link(self):
         return '%s/team' % self.context.absolute_url()
@@ -46,7 +31,11 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
     @property
     def items(self, n_items=12):
-        
+        if hasattr(self,'_items'):
+            # If the property already contains something, there's no need to
+            # regenerate it.
+            return self._items
+
         members = list(self.context.projectMembers())
         project = self.context
 
@@ -62,11 +51,10 @@ class TeamFeedAdapter(BaseFeedAdapter):
 
         for member in members:
             link = profile_path(member.id)
-            feed_item = createObject('opencore.feed.feeditem',
-                                     member.id,
-                                     member.fullname,
-                                     link,
-                                     member.id,
-                                     member.Date())
+            self.add_item(title=member.id,
+                          description=member.fullname,
+                          link=link,
+                          author=member.id,
+                          pubDate=member.Date())
 
-            yield feed_item
+        return self._items

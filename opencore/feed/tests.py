@@ -1,3 +1,4 @@
+from opencore.feed.base import BaseFeedAdapter
 import doctest
 import unittest
 from zope.app.component.interfaces import ISite
@@ -5,6 +6,9 @@ from zope.component import getGlobalSiteManager
 from zope.component import provideAdapter
 from zope.component.interfaces import IComponentLookup
 from zope.interface import implements
+
+BaseFeedAdapter.memberURL = lambda x, y: 'http://www.openplans.org'
+BaseFeedAdapter.member_portraitURL = lambda x, y: 'http://www.openplans.org/++resource++img/topp_logo.jpg'
 
 class DummyContext(object):
     implements(ISite)
@@ -45,14 +49,11 @@ def test_suite():
                                          optionflags=doctest.ELLIPSIS)
     page_suite = doctest.DocFileSuite('page.txt',
                                       optionflags=doctest.ELLIPSIS)
-    listen_suite = doctest.DocFileSuite('listen.txt',
-                                        optionflags=doctest.ELLIPSIS)
     return unittest.TestSuite((base_suite,
                                people_suite,
                                projects_suite,
                                project_suite,
                                page_suite,
-                               listen_suite,
                                ))
 
 
