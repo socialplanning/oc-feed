@@ -26,6 +26,4 @@
      permission="zope2.View"
      />
 
-   <include package=".summary_viewlets" /> 
-
 </configure>
