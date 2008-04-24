@@ -1,16 +1,9 @@
-from opencore.configuration import DEFAULT_ROLES
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.interfaces import IFeedData
-from opencore.feed.interfaces import IFeedItem
-from opencore.interfaces import IOpenTeam
 from opencore.interfaces import IProject
 from opencore.member.utils import profile_path
 from Products.CMFCore.utils import getToolByName
-from topp.utils.pretty_date import prettyDate
 from zope.component import adapts
-from zope.component import getUtility
-from zope.component import createObject
-from zope.interface import alsoProvides
 from zope.interface import implements
 
 def portrait_sort_key(member):
@@ -28,7 +21,6 @@ class TeamFeedAdapter(BaseFeedAdapter):
     def link(self):
         return '%s/team' % self.context.absolute_url()
 
-
     @property
     def items(self, n_items=12):
         if hasattr(self,'_items'):
@@ -36,8 +28,8 @@ class TeamFeedAdapter(BaseFeedAdapter):
             # regenerate it.
             return self._items
 
-        members = list(self.context.projectMembers())
         project = self.context
+        members = list(project.projectMembers())
 
         # XXX should probably go in Products.Openplans' project
         # maybe related to docstring above while filtering by hand is necessary?
