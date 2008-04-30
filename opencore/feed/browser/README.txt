@@ -1,3 +1,5 @@
+-*- mode: doctest ;-*-
+
 Verify that for all objects that should provide rss
 a view can be obtained::
 
@@ -6,7 +8,7 @@ a view can be obtained::
 
 Project::
     >>> proj = self.portal.projects.p1
-    >>> view = getMultiAdapter((self.portal.projects.p1, request), name='rss')
+    >>> view = proj.restrictedTraverse('@@rss')
     >>> html = view()
 
 Projects::
@@ -20,30 +22,27 @@ People::
 #    >>> html = view()
 
 Page::
-    >>> view = getMultiAdapter((self.portal.projects.p1._getOb('project-home'),
-    ...                         request),
-    ...                         name='rss')
+    >>> page = proj._getOb('project-home')
+    >>> view = page.restrictedTraverse('@@rss')
     >>> html = view()
 
 Mailing Lists::
 
 First need to create a mailing list on a project::
     >>> self.login('m3')
-    >>> proj = self.portal.projects.p1
     >>> from topp.featurelets.interfaces import IFeatureletSupporter
     >>> fs = IFeatureletSupporter(proj)
     >>> from opencore.listen.featurelet import ListenFeaturelet
     >>> fs.installFeaturelet(ListenFeaturelet(fs))
 
 Now that we have a lists folder, it should provide an rss view::
-     >>> lf = self.portal.projects.p1.lists
+     >>> lf = proj.lists
 
 # Code needs to be added to listen featurelet creation that marks the list
 # folder with ICanFeed first
 #    >>> view = getMultiAdapter((lf, request), name='rss')
 #    >>> html = view()
 
-    >>> view = getMultiAdapter((lf._getOb('p1-discussion'),
-    ...                         request),
-    ...                         name='rss')
+    >>> mlist = lf._getOb('p1-discussion')
+    >>> view = mlist.restrictedTraverse('@@rss')
     >>> html = view()
