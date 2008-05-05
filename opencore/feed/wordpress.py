@@ -1,11 +1,11 @@
 import feedparser
 import urllib2
 
-from Products.CMFCore.utils import getToolByName
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.base import FeedItemResponses
 from opencore.feed.interfaces import IFeedData
 from opencore.interfaces import IProject
+from opencore.nui.wiki.utils import unescape # XXX this should not live here!
 from zope.component import adapts
 from zope.interface import implements
 
@@ -72,8 +72,8 @@ class WordpressFeedAdapter(BaseFeedAdapter):
 
             title = entry.title
             if not title.strip():
-                title = entry.summary
-
+                title = unescape(entry.summary) # XXX unescaping seems weird
+                
             self.add_item(title=title,
                           description=entry.summary,
                           link=entry.link,
