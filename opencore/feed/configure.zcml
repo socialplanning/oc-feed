@@ -20,12 +20,6 @@
      factory=".people.PeopleFeedAdapter"
      />
 
-   <adapter
-      for="opencore.interfaces.IOpenPage"
-      provides="opencore.feed.interfaces.IFeedData"
-      factory=".page.PageFeedAdapter"
-      />   
-
   <include package=".browser" />
 
 </configure>
