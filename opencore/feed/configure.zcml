@@ -2,45 +2,11 @@
            xmlns:five="http://namespaces.zope.org/five"
            >
 
-  <five:implements
-     class="Products.OpenPlans.content.project.OpenProject"
-     interface="opencore.feed.interfaces.ICanFeed"
-     />  
-
-  <five:implements
-     class="opencore.content.page.OpenPage"
-     interface="opencore.feed.interfaces.ICanFeed"
-     />
-
   <utility
      provides="zope.component.interfaces.IFactory"
      component="opencore.feed.factory.feedItemFactory"
      name="opencore.feed.feeditem"
      />
-
-  <!-- feeds for a project -->
-
-  <adapter
-     for="opencore.interfaces.IProject"
-     provides="opencore.feed.interfaces.IFeedData"
-     factory=".project.WikiFeedAdapter"
-     />
-
-  <adapter
-     for="opencore.interfaces.IProject"
-     provides="opencore.feed.interfaces.IFeedData"
-     factory=".wordpress.WordpressFeedAdapter"
-     name="blog"
-     />
-
-  <adapter
-     for="opencore.interfaces.IProject"
-     provides="opencore.feed.interfaces.IFeedData"
-     factory=".team.TeamFeedAdapter"
-     name="team"
-     />
-
-  <!-- other feeds -->
 
   <adapter
      for="opencore.interfaces.adding.IAddProject"
@@ -53,12 +19,6 @@
      provides="opencore.feed.interfaces.IFeedData"
      factory=".people.PeopleFeedAdapter"
      />
-
-   <adapter
-      for="opencore.interfaces.IOpenPage"
-      provides="opencore.feed.interfaces.IFeedData"
-      factory=".page.PageFeedAdapter"
-      />   
 
   <include package=".browser" />
 
