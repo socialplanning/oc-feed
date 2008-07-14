@@ -35,8 +35,7 @@ class PeopleFeedAdapter(BaseFeedAdapter):
             # getting it the proper way is slower though
             # because we have to wake up more objects
             # mstool.getHomeFolder(brain.id)
-            url = brain.getURL().replace('portal_memberdata', 'people')
-            link = '%s/profile' % url
+            link = brain.getURL().replace('portal_memberdata', 'people')
 
             pubDate = brain.created
             author = title

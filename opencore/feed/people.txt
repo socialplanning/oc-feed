@@ -52,6 +52,5 @@ And finally check the object
     datetime.datetime...
 
 Link should be modified to point to people instead of portal_memberdata
-with a "profile" added to it
     >>> feed_item.link
-    'http://dummy/people/url/profile'
+    'http://dummy/people/url'
