@@ -1,20 +1,21 @@
 <div class="oc-widget oc-widget-feed oc-column"
-     tal:define="lowertitle context/title/lower"
+     tal:define="feed view/feed;
+                 lowertitle feed/title/lower"
      tal:attributes="id string:oc-feed-${lowertitle}">
   <h2 class="oc-feed-title">
-    <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a>     
+    <a tal:attributes="href feed/link" tal:content="feed/title">Feed Title</a>     
   </h2>
-  <div tal:condition="not: context/items">
+  <div tal:condition="not: feed/items">
     <p>
        There are currently no 
-       <span tal:replace="context/itemstitle | default">items</span>
+       <span tal:replace="feed/itemstitle | default">items</span>
     </p>
 
   </div>
 
-  <ul class="oc-feed-list" tal:condition="context/items">
+  <ul class="oc-feed-list" tal:condition="feed/items">
     <li class="oc-feed-item oc-clearAfter" 
-        tal:repeat="entry context/items">
+        tal:repeat="entry feed/items">
 
       <h3 class="oc-feed-item-title">
         <a tal:attributes="href entry/link"
@@ -59,9 +60,9 @@
 
         </div>
     </li>
-   <li tal:condition="context/items">
-	 See all <a tal:attributes="href context/link"
-		    tal:content="context/itemstitle | default">items</a>
+   <li tal:condition="feed/items">
+	 See all <a tal:attributes="href feed/link"
+		    tal:content="feed/itemstitle | default">items</a>
 	 </li>
   </ul>
 </div>

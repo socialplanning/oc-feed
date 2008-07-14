@@ -1,23 +1,12 @@
 from opencore.account import utils
 utils.turn_confirmation_on()
-from Products.Five.site.localsite import enableLocalSiteHook
-from Products.OpenPlans.tests.openplanstestcase import OpenPlansTestCase
-from Testing import ZopeTestCase
-from Testing.ZopeTestCase import PortalTestCase
-from opencore.configuration import OC_REQ
-from opencore.featurelets.interfaces import IListenContainer
 from opencore.testing import dtfactory as dtf
 from opencore.testing import setup as oc_setup
 from opencore.testing.layer import OpencoreContent
 from zope.app.component.hooks import setSite, setHooks
-from zope.interface import alsoProvides
 from zope.testing import doctest
-import os
-import sys
 import unittest
-import pkg_resources as pkgr
 
-#optionflags = doctest.REPORT_ONLY_FIRST_FAILURE | doctest.ELLIPSIS
 optionflags = doctest.ELLIPSIS
 
 import warnings; warnings.filterwarnings("ignore")
@@ -43,7 +32,6 @@ def test_suite():
 
     def readme_setup(tc):
         oc_setup.fresh_skin(tc)
-        enableLocalSiteHook(tc.portal)
         setSite(tc.portal)
         setHooks()
 
