@@ -1,0 +1,2 @@
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0"
+      tal:attributes="href string:${context/absolute_url}/rss" />

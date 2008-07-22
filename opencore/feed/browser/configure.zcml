@@ -26,4 +26,12 @@
      permission="zope2.View"
      />
 
+   <browser:viewlet
+     for="opencore.feed.interfaces.ICanFeed"
+     name="opencore.head.feed.viewlet"
+     manager="opencore.browser.interfaces.IExtraHead"
+     template="headlink.pt"
+     permission="zope2.View"
+     />
+
 </configure>
