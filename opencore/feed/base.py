@@ -1,18 +1,41 @@
+from BTrees.OOBTree import OOBTree
+from opencore.feed import annot_key
 from opencore.feed.interfaces import IFeedItem
+from opencore.feed.interfaces import IFeedData
 from opencore.member.utils import profile_path
 from opencore.member.utils import portrait_thumb_path
+from zope.app.annotation import IAnnotations
 from zope.component import createObject
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 
+import time
+
 class BaseFeedAdapter(object):
     """Useful base class that provides most common functionality.
-       Context needs to provide dublin core.
+       Context needs to provide dublin core, and support annotations.
+       XXX: this should be enforced by the adaptation contract
 
+       Feed items are stored in annotations on the context object, as
+       an OOBTree where the keys are a floating point representation
+       of seconds since the epoch (python's time.time() value).  Since
+       OOBTree's automatically sort by key, the feed will be ordered
+       from oldest to newest.
+       
        Implementations only have to provide the items iterable"""
+
+    implements(IFeedData)
+
+    n_items_default = 5
 
     def __init__(self, context):
         self.context = context
+        annot = IAnnotations(self.context)
+        storage = annot.get(annot_key, None)
+        if storage is None:
+            storage = OOBTree()
+            annot[annot_key] = storage
+        self.storage = storage
 
     # XXX this should become full_title, title should be short
     @property
@@ -42,6 +65,15 @@ class BaseFeedAdapter(object):
     def author(self):
         return self.context.Creator()
 
+    @property
+    def items(self, n_items=None):
+        """
+        Return the last n_items from the feed.
+        """
+        if n_items is None:
+            n_items = self.n_items_default
+        return reversed(self.storage.values()[-n_items:])
+
     def add_item(self, **kw):
         """Adds an item to the list of items maintained by this adapter.  The
         following arguments are required: %r""" % IFeedItem.names()
@@ -56,10 +88,12 @@ class BaseFeedAdapter(object):
         if not 'logo' in kw or not kw['logo']:
             kw['logo'] = self.member_portraitURL(kw['author'])
 
-        if not hasattr(self,'_items'):
-            self._items = []
-
-        self._items.append(createObject('opencore.feed.feeditem',**kw))
+        # is there a reason we're using createObject and not just
+        # instantiating it directly?
+        feeditem = createObject('opencore.feed.feeditem', **kw)
+        added = 0
+        while added == 0:
+            added = self.storage.insert(time.time(), feeditem)
 
     def memberURL(self, id):
         """Utility method that uses the current context to convert a member id

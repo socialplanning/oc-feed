@@ -1,12 +1,8 @@
 from Products.CMFCore.utils import getToolByName
 from opencore.interfaces.adding import IAddProject
-from opencore.interfaces import IProject
 from opencore.feed.base import BaseFeedAdapter
 from opencore.feed.interfaces import IFeedData
-from opencore.feed.interfaces import IFeedItem
 from zope.component import adapts
-from zope.component import createObject
-from zope.interface import alsoProvides
 from zope.interface import implements
 
 class ProjectsFeedAdapter(BaseFeedAdapter):
