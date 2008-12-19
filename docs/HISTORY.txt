@@ -1,7 +1,23 @@
 Changelog
 =========
 
-0.1 - Unreleased
+0.3 (2008-12-19)
+---------------
+add rss link for pages that have feed data.
+
+(the plone3 branch has been merged back to trunk.)
+
+0.2 (2008-11-05)
+----------------
+
+Since  0.1 was never tagged, it's impossible to say what
+was new in this release :-p
+
+For historical purposes, I'll note that it was copied from
+opencore/plugins/oc-feed/branches/plone3 as of r21262.
+
+
+0.1 - unreleased
 ----------------
 
 * Initial release
