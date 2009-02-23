@@ -22,7 +22,6 @@ def test_suite():
     from opencore.nui.indexing import authenticated_memberid
     from opencore.testing import utils
     from pprint import pprint
-    from topp.clockqueue.interfaces import IClockQueue
     from topp.featurelets.interfaces import IFeatureletSupporter
     from zope.component import getUtility
     from zope.interface import alsoProvides
