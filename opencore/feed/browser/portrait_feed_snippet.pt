@@ -1,11 +1,14 @@
 <div class="oc-widget oc-widget-feed oc-column"
      tal:define="lowertitle context/title/lower"
-     tal:attributes="id string:oc-feed-${lowertitle}">
+     tal:attributes="id string:oc-feed-${lowertitle}"
+     i18n:domain="opencore">
+
   <h2 class="oc-feed-title">
     <a tal:attributes="href context/link" tal:content="context/title">Feed Title</a>     
   </h2>
+
   <div tal:condition="not: context/items">
-    <p>
+    <p i18n:translate="">
        There are currently no 
        <span tal:replace="context/itemstitle | default">items</span>
     </p>
@@ -15,55 +18,51 @@
   <ul class="oc-feed-list" tal:condition="context/items">
     <li class="oc-feed-item oc-clearAfter" 
         tal:repeat="entry context/items">
-      
-      <div tal:define="author entry/author | nothing">
-	<img tal:condition="entry/logo | nothing"
-	     tal:attributes="src entry/logo" />
-	<h3 class="oc-feed-item-title">
-          <a tal:attributes="href entry/link"
-	     tal:content="entry/title" />    
-	</h3>
+        <div tal:define="author entry/author | nothing">
 
-	<!-- display responses (replies, comments) -->
-	<span tal:omit-tag=""
-	      tal:condition="entry/responses | nothing"
-	      tal:define="response entry/responses | nothing">
-	  
-	  <a tal:omit-tag="not:response/link"
-	     tal:attributes="href response/link"
-	     tal:content="response/reply_string">
-	    12 comments
-	  </a>	   	     
-	</span>
+        	<img tal:condition="entry/logo | nothing"
+        		 tal:attributes="src entry/logo" />
+        	
+        	<h3 class="oc-feed-item-title">
+        		<a tal:attributes="href entry/link" tal:content="entry/title" />
+        	</h3>
 
-        <div class="oc-feed-item-data oc-discreetText">
-	  
-	  <span tal:condition="author">
-            <span tal:replace="entry/byline | default">
-	      by
-            </span>
-	       
-            <a tal:define="author_home entry/authorURL | nothing"
-	       tal:omit-tag="not:author_home"
-	       tal:attributes="href author_home"
-	       tal:content="author">author</a>,
-            <span tal:define="date entry/pubDate"
-                  tal:replace="python:view.pretty_date(date)"/>
-	  </span>
-	  <div tal:condition="entry/context | nothing">
-	    from
-	    <a tal:omit-tag="not:entry/context/link"
-	       tal:attributes="href entry/context/link"
-	       tal:content="entry/context/title">
-	      This Context
-	    </a>
-          </div>	  
-        </div>
+        	<!-- display responses (replies, comments) -->
+        	<span tal:omit-tag=""
+        		  tal:condition="entry/responses | nothing"
+        		  tal:define="response entry/responses | nothing">
+
+        		<a tal:omit-tag="not:response/link"
+        		   tal:attributes="href response/link"
+        		   tal:content="response/reply_string">
+        		   12 comments
+        		</a>
+        	</span>
+
+        	<div class="oc-feed-item-data oc-discreetText">
+
+        		<span tal:condition="author">
+        			<span tal:replace="entry/byline | default">by</span>
+        			<a tal:define="author_home entry/authorURL | nothing"
+        			   tal:omit-tag="not:author_home"
+        			   tal:attributes="href author_home"
+        			   tal:content="author">author</a>,
+        			<span tal:define="date entry/pubDate"
+        				  tal:replace="python:view.pretty_date(date)"/>
+        		</span>
+        		<div tal:condition="entry/context | nothing">
+        			from
+        			<a tal:omit-tag="not:entry/context/link"
+        			   tal:attributes="href entry/context/link"
+        			   tal:content="entry/context/title">
+        			   This Context
+        			</a>
+        		</div>	  
+            </div>
       </div>
     </li>
-    <li tal:condition="context/items">
-	  See all <a tal:attributes="href context/link" 
-		     tal:content="context/itemstitle | default">items</a>
+    <li tal:condition="context/items" i18n:translate="">
+    	See all <a tal:attributes="href context/link" tal:content="context/itemstitle | default" i18n:name="context_items_title">items</a>
 	  </li>
   </ul>
 </div>
