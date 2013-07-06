@@ -1,16 +1,18 @@
 <div class="oc-widget oc-widget-feed oc-column"
      tal:define="feed view/feed;
                  lowertitle feed/title/lower"
-     tal:attributes="id string:oc-feed-${lowertitle}">
+     tal:attributes="id string:oc-feed-${lowertitle}"
+     i18n:domain="opencore">
+
   <h2 class="oc-feed-title">
     <a tal:attributes="href feed/link" tal:content="feed/title">Feed Title</a>     
   </h2>
+
   <div tal:condition="not: feed/items">
-    <p>
+    <p i18n:translate="">
        There are currently no 
        <span tal:replace="feed/itemstitle | default">items</span>
     </p>
-
   </div>
 
   <ul class="oc-lineup-list" tal:condition="feed/items">
@@ -24,45 +26,44 @@
 
       <!-- display responses (replies, comments) -->
       <span tal:omit-tag=""
-	    tal:condition="entry/responses | nothing"
-	    tal:define="response entry/responses | nothing">
+            tal:condition="entry/responses | nothing"
+            tal:define="response entry/responses | nothing">
 
-	<a tal:omit-tag="not:response/link"
-	   tal:attributes="href response/link"
-	   tal:content="response/reply_string">
-	  12 comments
-	</a>	   
-
+            <a tal:omit-tag="not:response/link"
+               tal:attributes="href response/link"
+               tal:content="response/reply_string">
+               12 comments
+            </a>	   
       </span>
 
-        <div class="oc-feed-item-data oc-discreetText">
+      <div class="oc-feed-item-data oc-discreetText">
 
-	  <span tal:condition="entry/author | nothing">
+        <span tal:condition="entry/author | nothing">
           <span tal:replace="entry/byline | default">
           by
           </span>
 
           <a tal:define="author_home entry/authorURL | nothing"
-	     tal:omit-tag="not:author_home"
-	     tal:attributes="href author_home"
+             tal:omit-tag="not:author_home"
+             tal:attributes="href author_home"
              tal:content="entry/author">author</a>,
              <span tal:define="date entry/pubDate"
                      tal:replace="python:view.pretty_date(date)"/>
-	  </span>
-	  <div tal:condition="entry/context | nothing">
-	     from
-	     <a tal:omit-tag="not:entry/context/link"
-		tal:attributes="href entry/context/link"
-	        tal:content="entry/context/title">
-		This Context
-	     </a>
-          </div>
+        </span>
+
+        <div tal:condition="entry/context | nothing">
+          from
+          <a tal:omit-tag="not:entry/context/link"
+             tal:attributes="href entry/context/link"
+             tal:content="entry/context/title">
+             This Context
+          </a>
+        </div>
 
         </div>
     </li>
-   <li tal:condition="feed/items">
-	 See all <a tal:attributes="href feed/link"
-		    tal:content="feed/itemstitle | default">items</a>
-	 </li>
+    <li tal:condition="feed/items" i18n:translate="">
+      See all <a tal:attributes="href feed/link" tal:content="feed/itemstitle | default" i18n:name="feed_items_title">items</a>
+    </li>
   </ul>
 </div>

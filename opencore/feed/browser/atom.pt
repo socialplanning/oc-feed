@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      >
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
  
  <title tal:content="context/title" />
  <link tal:attributes="href context/link" />

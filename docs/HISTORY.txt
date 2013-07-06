@@ -1,6 +1,16 @@
 Changelog
 =========
 
+0.4-dev - (unreleased)
+----------------------
+
+* Added i18n support.
+
+* Updated y Renamed README file.
+
+* Added more metadata package into setup.py.
+
+
 0.3 (2008-12-19)
 ---------------
 add rss link for pages that have feed data.
