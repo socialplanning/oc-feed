@@ -22,25 +22,25 @@ msgstr ""
 
 #: ../browser/headlink.pt:1
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: ../browser/portrait_feed_snippet.pt:65
 msgid "See all ${context_items_title}"
-msgstr ""
+msgstr "Ver todos ${context_items_title}"
 
 #: ../browser/feed_snippet.pt:66
 msgid "See all ${feed_items_title}"
-msgstr ""
+msgstr "Ver todos ${feed_items_title}"
 
 #: ../browser/portrait_feed_snippet.pt:13
 msgid "There are currently no ${context_itemstitle}"
-msgstr ""
+msgstr "Actualmente no hay ${context_itemstitle}"
 
 #: ../browser/feed_snippet.pt:14
 msgid "There are currently no ${feed_itemstitle}"
-msgstr ""
+msgstr "Actualmente no hay ${feed_itemstitle}"
 
 #: ../browser/feed_snippet.pt:55
 #: ../browser/portrait_feed_snippet.pt:54
 msgid "from"
-msgstr ""
+msgstr "desde"
