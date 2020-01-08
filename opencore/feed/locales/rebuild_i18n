@@ -3,7 +3,6 @@
 domain='opencore'
 
 # Synchronise the templates and scripts with the .pot file for opencore domain.
-# i18ndude rebuild-pot --pot ./$domain.pot --create $domain --exclude ../browser/rss.pt ../
 i18ndude rebuild-pot --pot ./$domain.pot \
     --create $domain \
     --exclude ../browser/rss.pt \
