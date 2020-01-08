@@ -1,0 +1,10 @@
+[main]
+host = https://www.transifex.com
+
+[social-planning.opencore-feed-pot]
+file_filter = opencore/feed/locales/<lang>/LC_MESSAGES/opencore.po
+minimum_perc = 0
+source_file = opencore/feed/locales/opencore.pot
+source_lang = en
+type = PO
+
