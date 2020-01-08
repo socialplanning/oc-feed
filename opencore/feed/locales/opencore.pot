@@ -1,0 +1,43 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-01-08 21:44+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: opencore\n"
+
+#: ../browser/headlink.pt:1
+msgid "RSS 2.0"
+msgstr ""
+
+#: ../browser/portrait_feed_snippet.pt:65
+msgid "See all ${context_items_title}"
+msgstr ""
+
+#: ../browser/feed_snippet.pt:66
+msgid "See all ${feed_items_title}"
+msgstr ""
+
+#: ../browser/portrait_feed_snippet.pt:13
+msgid "There are currently no ${context_itemstitle}"
+msgstr ""
+
+#: ../browser/feed_snippet.pt:14
+msgid "There are currently no ${feed_itemstitle}"
+msgstr ""
+
+#: ../browser/feed_snippet.pt:55
+#: ../browser/portrait_feed_snippet.pt:54
+msgid "from"
+msgstr ""

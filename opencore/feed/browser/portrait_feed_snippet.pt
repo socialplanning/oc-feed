@@ -10,7 +10,7 @@
   <div tal:condition="not: context/items">
     <p i18n:translate="">
        There are currently no 
-       <span tal:replace="context/itemstitle | default">items</span>
+       <span tal:replace="context/itemstitle | default" i18n:name="context_itemstitle">items</span>
     </p>
 
   </div>
@@ -51,7 +51,7 @@
         				  tal:replace="python:view.pretty_date(date)"/>
         		</span>
         		<div tal:condition="entry/context | nothing">
-        			from
+        			<span i18n:translate="">from</span>
         			<a tal:omit-tag="not:entry/context/link"
         			   tal:attributes="href entry/context/link"
         			   tal:content="entry/context/title">

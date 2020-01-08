@@ -11,7 +11,7 @@
   <div tal:condition="not: feed/items">
     <p i18n:translate="">
        There are currently no 
-       <span tal:replace="feed/itemstitle | default">items</span>
+       <span tal:replace="feed/itemstitle | default" i18n:name="feed_itemstitle">items</span>
     </p>
   </div>
 
@@ -52,7 +52,7 @@
         </span>
 
         <div tal:condition="entry/context | nothing">
-          from
+          <span i18n:translate="">from</span>
           <a tal:omit-tag="not:entry/context/link"
              tal:attributes="href entry/context/link"
              tal:content="entry/context/title">
