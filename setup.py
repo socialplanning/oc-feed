@@ -8,7 +8,7 @@ setup(name='oc-feed',
       description="Generate feeds for OpenCore Software content",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+      # Get more strings from https://pypi.org/pypi?:action=list_classifiers
       classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Plugins",
